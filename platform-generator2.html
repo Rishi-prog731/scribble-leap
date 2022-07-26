@@ -68,6 +68,7 @@
       }
 
       function create() {
+        var theScene = this;
         //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
         let background = this.add
           .tileSprite(0, 0, game.scale.width, game.scale.height, "sky")
@@ -140,23 +141,31 @@
         );
         basePlatform.setScale(3, 1).refreshBody();
 
-        platforms.create(500, 250, "platform");
         
         platform1 = platforms.create(950, 700, "platform");
         platform1.body.checkCollision.down = false;
         platform1.body.checkCollision.right = false;
         platform1.body.checkCollision.left = false;
       }
+      
       function generatePlatform(scene) {
         platforms = scene.physics.add.staticGroup();
-        
-        platform = platforms.create(950, 700, "platform");
+        lastPlatformY -= 100;
+        let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
         platform.body.checkCollision.down = false;
         platform.body.checkCollision.right = false;
         platform.body.checkCollision.left = false;
+        platform.body.checkCollision.up = true;
+        
+
+        console.log("working");
       }
 
       function update() {
+        if (lastPlatformY > 0) {
+          generatePlatform(this);
+        }
+        this.physics.add.collider(player, platforms);
         // console.log(paused);
         //console.log(player.x);
         //Player will not move in the x-axis unless a movement key is being pressed

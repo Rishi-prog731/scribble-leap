@@ -57,7 +57,7 @@
         );
         this.load.image(
           "platform",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fplatform.png?1658777114483"
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/platform_final.png?v=1658849470327"
         );
         this.load.atlas(
           "slime",
@@ -67,7 +67,8 @@
       }
 
       function create() {
-        this.cameras.main.setBounds(0, 0, Swidth, Sheight);
+        //this.cameras.main.setBounds(0, 0, Swidth, 10000, true);
+       // this.cameras.main.setDeadzone( 200,200)
         //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
         let background = this.add
           .tileSprite(0, 0, game.scale.width, game.scale.height, "sky")
@@ -132,23 +133,28 @@
 
       function createPlatforms(scene) {
         platforms = scene.physics.add.staticGroup();
-
-        //basePlatform is the floor of the game
-        //let basePlatform = platforms.create(
-          //game.scale.width / 2,
-          //game.scale.height - 30,
-         // Swidth/5,
-         // Sheight/2,
-         // "platform"
-        //);
-        //basePlatform.setScale(3, 1).refreshBody();
-
-        platforms.create(10, , "platform");
         
-        platform1 = platforms.create(950, 700, "platform");
-        platform1.body.checkCollision.down = false;
-        platform1.body.checkCollision.right = false;
-        platform1.body.checkCollision.left = false;
+        //basePlatform is the floor of the game
+        let randomPlatform = platforms.create(
+          game.scale.width / 2,
+          game.scale.height - 30,
+          "platform"
+        );
+        let x = 0;
+        randomPlatform.setScale(.3, .3).refreshBody();
+        while (x<10000){
+          platform1 = platforms.create(x, x, "platform");
+          platform1.setScale(.3, .3). refreshBody
+          platform1.body.checkCollision.down = false;
+          platform1.body.checkCollision.right = false;
+          platform1.body.checkCollision.left = false;
+          console.log(platform1);
+          x+=100;
+          
+        }
+        platforms.create(1000, 100, "platform");
+        
+
       }
 
       function update() {
@@ -211,7 +217,7 @@
       }
       function jump(event) {
         if (player.body.touching.down) {
-          player.setVelocityY(-1000);
+          player.setVelocityY(-500);
         }
       }
       

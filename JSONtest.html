@@ -60,10 +60,14 @@
           "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fplatform.png?1658777114483"
         );
         this.load.atlas(
-          "slime",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIdle00.png?1658864076022",
+          "player",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIdle00.png?1658865240372",
           "mcSpriteIdle00.json"
         );
+        this.load.atlas(
+          "playerF",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIdleF00.png?1658867810934",
+          "mcSpriteIdleF00.json")
       }
 
       function create() {
@@ -77,8 +81,8 @@
        // this.cameras.main.setZoom(4);
         let playerAnimations = {};
         var idle = this.anims.create({
-          key: "slime_idle",
-          frames: this.anims.generateFrameNames("slime", {
+          key: "player_idle",
+          frames: this.anims.generateFrameNames("player", {
             prefix: "mcSpriteIdle",
             end: 1,
             zeroPad: 2,
@@ -88,21 +92,21 @@
         });
         playerAnimations["idle"] = idle;
         var left = this.anims.create({
-          key: "slime_left",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_left",
-            end: 5,
+          key: "player_left",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "mcSpriteIdleF",
+            end: 1,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 10,
+          frameRate: 2,
         });
         playerAnimations["left"] = left;
         var right = this.anims.create({
-          key: "slime_right",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_right",
-            end: 5,
+          key: "player_right",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "mcSpriteIdle",
+            end: 1,
             zeroPad: 2,
           }),
           repeat: -1,
@@ -114,7 +118,7 @@
         //Create the platforms and the player character set to collide with the platforms
         createPlatforms(this);
 
-        player = new Player(this, 400, 400, "slime", playerAnimations);
+        player = new Player(this, 400, 400, "player", playerAnimations);
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
         this.cameras.main.startFollow(player, true, 0.09, 0.09);

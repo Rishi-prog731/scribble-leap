@@ -15,7 +15,7 @@
       var Sheight = window.screen.availHeight * 0.85;
       var Swidth = window.screen.availWidth * 1;
       var config = {
-        type: Phaser.AUTO,
+        type: Phaser.CANVAS,
         width: Swidth,
         height: Sheight,
         // game.scale.pageAlignHorizontally = true;
@@ -67,7 +67,7 @@
       }
 
       function create() {
-        this.cameras.main.setBounds(0, 0, Swidth, Sheight);
+        //this.game.world.setBounds(0, 0, this.game.width, 3500);
         //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
         let background = this.add
           .tileSprite(0, 0, game.scale.width, game.scale.height, "sky")
