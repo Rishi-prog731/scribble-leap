@@ -61,29 +61,30 @@
         );
         this.load.atlas(
           "slime",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/slimesheet.png?1658777114399",
-          "slimesheet.json"
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIdle00.png?1658864076022",
+          "mcSpriteIdle00.json"
         );
       }
 
       function create() {
+        this.cameras.main.setBounds(0, 0, Swidth, Sheight);
         //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
         let background = this.add
           .tileSprite(0, 0, game.scale.width, game.scale.height, "sky")
           .setOrigin(0, 0);
 
         //create all animations
-
+       // this.cameras.main.setZoom(4);
         let playerAnimations = {};
         var idle = this.anims.create({
           key: "slime_idle",
           frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_idle",
-            end: 5,
+            prefix: "mcSpriteIdle",
+            end: 1,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 10,
+          frameRate: 2,
         });
         playerAnimations["idle"] = idle;
         var left = this.anims.create({
@@ -116,7 +117,8 @@
         player = new Player(this, 400, 400, "slime", playerAnimations);
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
-
+        this.cameras.main.startFollow(player, true, 0.09, 0.09);
+        this.cameras.main.setZoom(2);
         //Set up user input
         cursors = this.input.keyboard.createCursorKeys();
         keys = this.input.keyboard.addKeys("A, D");
@@ -140,7 +142,11 @@
         basePlatform.setScale(3, 1).refreshBody();
 
         platforms.create(500, 250, "platform");
-        platforms.create(950, 400, "platform");
+        
+        platform1 = platforms.create(950, 700, "platform");
+        platform1.body.checkCollision.down = false;
+        platform1.body.checkCollision.right = false;
+        platform1.body.checkCollision.left = false;
       }
 
       function update() {
@@ -203,9 +209,10 @@
       }
       function jump(event) {
         if (player.body.touching.down) {
-          player.setVelocityY(-600);
+          player.setVelocityY(-1000);
         }
       }
+      
 
       class Player extends Phaser.Physics.Arcade.Sprite {
         animations;
@@ -222,3 +229,4 @@
     </script>
   </body>
 </html>
+

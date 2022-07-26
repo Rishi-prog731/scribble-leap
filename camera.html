@@ -47,6 +47,8 @@
       var graphics;
       var acceleration = 2000;
       var maxSpeed = 750;
+      this.controls = new Phaser.Cameras.Controls.SmoothedKeyControl(controlConfig);
+      var cam = this.cameras.main;
 
       function preload() {
         //this.load.image('sky', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fbackground.png?1658781131738');
@@ -71,7 +73,7 @@
         let background = this.add
           .tileSprite(0, 0, game.scale.width, game.scale.height, "sky")
           .setOrigin(0, 0);
-
+        var cursors = this.input.keyboard.createCursorKeys(); //camera
         //create all animations
 
         let playerAnimations = {};
@@ -140,7 +142,11 @@
         basePlatform.setScale(3, 1).refreshBody();
 
         platforms.create(500, 250, "platform");
-        platforms.create(950, 400, "platform");
+        
+        platform1 = platforms.create(950, 700, "platform");
+        platform1.body.checkCollision.down = false;
+        platform1.body.checkCollision.right = false;
+        platform1.body.checkCollision.left = false;
       }
 
       function update() {
@@ -203,7 +209,7 @@
       }
       function jump(event) {
         if (player.body.touching.down) {
-          player.setVelocityY(-600);
+          player.setVelocityY(-1000);
         }
       }
 
@@ -222,3 +228,4 @@
     </script>
   </body>
 </html>
+

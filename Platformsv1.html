@@ -107,8 +107,7 @@
           repeat: -1,
           frameRate: 10,
         });
-        playerAnimations["right"] = right;
-        var maxSpeed;
+        playerAnimations["right"] = right;var maxSpeed
 
         //Create the platforms and the player character set to collide with the platforms
         createPlatforms(this);
@@ -137,13 +136,15 @@
           game.scale.height - 30,
           "platform"
         );
-        basePlatform.setScale(3, 1).refreshBody();
+        basePlatform.setScale(3, 1).refreshBody()
+        
 
-        platforms.create(500, 250, "platform");
+        platforms.create(500, 500, "platform")
         platforms.create(950, 400, "platform");
       }
 
       function update() {
+        
         // console.log(paused);
         //console.log(player.x);
         //Player will not move in the x-axis unless a movement key is being pressed
@@ -157,7 +158,7 @@
           if (player.body.velocity.x > -maxSpeed) {
             player.setAccelerationX(-acceleration);
           } else {
-            player.setVelocityX(-maxSpeed);
+            player.setVelocityX(-maxSpeed)
           }
           player.play(player.animations["left"], true);
         } else if (cursors.right.isDown || keys.D.isDown) {

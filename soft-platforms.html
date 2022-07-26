@@ -140,7 +140,11 @@
         basePlatform.setScale(3, 1).refreshBody();
 
         platforms.create(500, 250, "platform");
-        platforms.create(950, 400, "platform");
+        
+        platform1 = platforms.create(950, 700, "platform");
+        platform1.body.checkCollision.down = false;
+        platform1.body.checkCollision.right = false;
+        platform1.body.checkCollision.left = false;
       }
 
       function update() {
@@ -203,9 +207,10 @@
       }
       function jump(event) {
         if (player.body.touching.down) {
-          player.setVelocityY(-600);
+          player.setVelocityY(-1000);
         }
       }
+      
 
       class Player extends Phaser.Physics.Arcade.Sprite {
         animations;
@@ -222,3 +227,4 @@
     </script>
   </body>
 </html>
+

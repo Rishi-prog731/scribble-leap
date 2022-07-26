@@ -140,7 +140,11 @@
         basePlatform.setScale(3, 1).refreshBody();
 
         platforms.create(500, 250, "platform");
-        platforms.create(950, 400, "platform");
+        let platform1 = platforms.create(950, 700, "platform")
+        platform1.body.checkCollision.down = false;
+        platform1.body.checkCollision.right = false;
+        platform1.body.checkCollision.left = false;
+        
       }
 
       function update() {
@@ -217,6 +221,14 @@
           this.setScale(2);
           this.setCollideWorldBounds(false);
           this.setGravityY(1000);
+        }
+      }
+      
+      class Platform extends scene.physics.add.staticGroup {
+        constructor() {
+          this.body.checkCollision.down = false;
+          this.body.checkCollision.right = false;
+          this.body.checkCollision.left = false;
         }
       }
     </script>

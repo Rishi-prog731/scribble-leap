@@ -47,6 +47,7 @@
       var graphics;
       var acceleration = 2000;
       var maxSpeed = 750;
+      var lastPlatformY = window.screen.availHeight * 0.85;
 
       function preload() {
         //this.load.image('sky', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fbackground.png?1658781131738');
@@ -60,9 +61,9 @@
           "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fplatform.png?1658777114483"
         );
         this.load.atlas(
-          "slime",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/slimesheet.png?1658777114399",
-          "slimesheet.json"
+          "mcSprite",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcWalkingSprite2.png?1658852247676",
+          "mcSprite.json"
         );
       }
 
@@ -76,9 +77,9 @@
 
         let playerAnimations = {};
         var idle = this.anims.create({
-          key: "slime_idle",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_idle",
+          key: "mcSpriteIdle",
+          frames: this.anims.generateFrameNames("mcSprite", {
+            prefix: "mcSpriteIdle",
             end: 5,
             zeroPad: 2,
           }),
@@ -87,9 +88,9 @@
         });
         playerAnimations["idle"] = idle;
         var left = this.anims.create({
-          key: "slime_left",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_left",
+          key: "mcSpriteLeft",
+          frames: this.anims.generateFrameNames("mcSprite", {
+            prefix: "mcSpriteLeft",
             end: 5,
             zeroPad: 2,
           }),
@@ -98,9 +99,9 @@
         });
         playerAnimations["left"] = left;
         var right = this.anims.create({
-          key: "slime_right",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_right",
+          key: "mcSpriteRight",
+          frames: this.anims.generateFrameNames("mcSprite", {
+            prefix: "mcSpriteRight",
             end: 5,
             zeroPad: 2,
           }),
@@ -113,7 +114,7 @@
         //Create the platforms and the player character set to collide with the platforms
         createPlatforms(this);
 
-        player = new Player(this, 400, 400, "slime", playerAnimations);
+        player = new Player(this, 400, 400, "mcSprite", playerAnimations);
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
 
@@ -144,6 +145,9 @@
       }
 
       function update() {
+        if (lastPlatformyY > 0) {
+          //generatePlatform(this);
+        }
         // console.log(paused);
         //console.log(player.x);
         //Player will not move in the x-axis unless a movement key is being pressed
@@ -201,12 +205,21 @@
         //player.setVelocityY(0);
         //console.log(pauseX)
       }
+      
       function jump(event) {
         if (player.body.touching.down) {
           player.setVelocityY(-600);
         }
       }
-
+      
+      /* function generatePlatform(scene) {
+        platforms = scene.physics.add.staticGroup();
+        lastPlatformY += 100;
+        let platform = platforms.create(950, lastPlatformY, "platform");
+        platform.body.checkCollision.down = false;
+        platform.body.checkCollision.right = false;
+        platform.body.checkCollision.left = false;
+      } */
       class Player extends Phaser.Physics.Arcade.Sprite {
         animations;
         constructor(scene, x, y, spritesheet, animations) {

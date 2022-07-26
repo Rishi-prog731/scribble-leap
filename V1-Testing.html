@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    
+<center><script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script></center>
+
+</head>
+
+<body style="background-color:black;">
+<li><a href="V1copy.html">V1copy.html</a></li>
+    <script>
+    //var Swidth = screen.width;
+   // var Sheight = screen.height;
+      var Sheight = window.screen.availHeight;
+      var Swidth =  window.screen.availWidth;
+    var config = {
+        type: Phaser.AUTO,
+        width: Swidth*1,
+        height: Sheight*.85,
+       // game.scale.pageAlignHorizontally = true;
+       // game.scale.pageAlignVertically = true;
+        //game.scale.refresh();
+        physics: {
+            default: 'arcade',
+        },
+
+        scene: {
+            preload: preload,
+            create: create,
+            update: update,
+        }
+        
+
+    };
+
+    var game = new Phaser.Game(config);
+    
+    //Game Objects
+    var platforms;
+    var map;
+    var player;
+    var seacreatures = [];
+
+    //Keyboard controls
+    var cursors;
+    var keys;
+    var space;
+
+    var graphics;
+
+    function preload()
+    {
+        //this.load.image('sky', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fbackground.png?1658781131738');
+     
+        this.load.image('sky', ' https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0ca0366a-2924-452d-8c9d-0f8617807e22/dcatq78-8b3818c2-9e03-4179-9601-e87ac825a0ef.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzBjYTAzNjZhLTI5MjQtNDUyZC04YzlkLTBmODYxNzgwN2UyMlwvZGNhdHE3OC04YjM4MThjMi05ZTAzLTQxNzktOTYwMS1lODdhYzgyNWEwZWYuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.kk1b_iX4C7FU7Usd6TfmN7UlSVFXjRWK4zMxk7wcL_0');
+      this.load.image('platform', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fplatform.png?1658777114483');
+        this.load.atlas('slime', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/slimesheet.png?1658777114399', 'slimesheet.json');
+        this.load.atlas('seacreatures', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fseacreatures_json.png?1658777114673', 'seacreatures_json.json');
+    }
+
+    function create()
+    {
+      
+
+        //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
+       let background = this.add.tileSprite(0, 0, game.scale.width, game.scale.height, 'sky').setOrigin(0, 0);
+
+       //create all animations
+       this.anims.create({key: 'jellyfish', frames: this.anims.generateFrameNames('seacreatures', {prefix: 'blueJellyfish', end: 32, zeroPad: 4}), repeat: -1});
+       this.anims.create({key: 'octopus', frames: this.anims.generateFrameNames('seacreatures', {prefix: 'octopus', end: 24, zeroPad: 4}), repeat: -1});
+
+       let playerAnimations = {}; 
+       var idle = this.anims.create({key: 'slime_idle', frames: this.anims.generateFrameNames('slime', {prefix: 'slime_idle', end: 5, zeroPad: 2}), repeat: -1, frameRate: 10});
+       playerAnimations['idle'] = idle;
+       var left = this.anims.create({key: 'slime_left', frames: this.anims.generateFrameNames('slime', {prefix: 'slime_left', end: 5, zeroPad: 2}), repeat: -1, frameRate: 10});
+       playerAnimations['left'] = left;
+       var right = this.anims.create({key: 'slime_right', frames: this.anims.generateFrameNames('slime', {prefix: 'slime_right', end: 5, zeroPad: 2}), repeat: -1, frameRate: 10});
+       playerAnimations['right'] = right;
+
+       //Create the platforms and the player character set to collide with the platforms
+       createPlatforms(this);
+
+       player = new Player(this, 400, 400, 'slime', playerAnimations);
+       this.physics.add.collider(player, platforms);
+       player.play(player.animations['idle']);
+
+       let jellyfish = new SeaCreature(this, 200, 150, 'seacreatures', 'jellyfish');
+       jellyfish.addTween(this, jellyfish.x, jellyfish.y+20, 2000);
+       seacreatures.push(jellyfish);
+
+       let octopus = new SeaCreature(this, 700, 300, 'seacreatures', 'octopus');
+       octopus.addTween(this, octopus.x+400, octopus.y, 2000);
+       seacreatures.push(octopus);
+
+       //Set up user input
+       cursors = this.input.keyboard.createCursorKeys();
+       keys = this.input.keyboard.addKeys('A, D');
+       space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+       //space.on('down', jump);
+
+       graphics = this.add.graphics();
+    }
+
+    function createPlatforms(scene)
+    {
+        platforms = scene.physics.add.staticGroup();
+
+        //basePlatform is the floor of the game
+        let basePlatform = platforms.create(game.scale.width/2, game.scale.height-30, 'platform');
+        basePlatform.setScale(3, 1).refreshBody();
+
+        platforms.create(250, 250, 'platform');
+        platforms.create(950, 400, 'platform'); 
+    }
+
+    function update()
+    {
+        //Player will not move in the x-axis unless a movement key is being pressed
+        //player.setVelocityX(0);
+
+        //Player has "drag" on the x-axis meaning they slide a bit after an input
+        player.setDragX(1500);
+
+        //Handle player movements
+        if (cursors.left.isDown || keys.A.isDown)
+        {
+            player.setVelocityX(-300);
+            player.play(player.animations['left'], true);
+        } else if (cursors.right.isDown || keys.D.isDown)
+        {
+            player.setVelocityX(300);
+            player.play(player.animations['right'], true);
+        } else 
+        {
+            player.play(player.animations['idle'], true);
+        }
+        
+        //let bounds = player.getBounds();
+        //graphics.clear();
+        //graphics.lineStyle(1, 0xff0000);
+        //graphics.strokeRectShape(bounds);
+        if (player.body.touching.down){
+          jump();
+        }
+    }
+
+    function jump(event)
+    {
+        if (player.body.touching.down)
+        {
+
+            player.setVelocityY(-600);
+        }
+    }
+
+    class Player extends Phaser.Physics.Arcade.Sprite 
+    {
+        animations;
+        constructor(scene, x, y, spritesheet, animations)
+        {
+            super(scene, x, y, spritesheet);
+            this.animations = animations;
+            scene.add.existing(this);
+            scene.physics.add.existing(this);
+            this.setScale(2);
+            this.setCollideWorldBounds(true);
+            this.setGravityY(1000); 
+        }
+    }
+
+    class SeaCreature extends Phaser.Physics.Arcade.Sprite
+    {
+        constructor(scene, x, y, spritesheet, animation) 
+        {
+            super(scene, x, y, spritesheet, animation);
+            scene.add.existing(this);
+            scene.physics.add.existing(this);
+            this.setScale(0.8);
+            this.play(animation);
+        }
+
+        addTween(scene, xDist, yDist, time) 
+        {
+            scene.tweens.add({ targets: this, x: xDist, y: yDist, duration: time, ease: 'Sine.easeInOut', repeat: -1, yoyo: true });
+        }
+    }
+
+    </script>
+
+</body>
+
+</html>
