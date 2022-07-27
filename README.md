@@ -1,7 +1,7 @@
 
 # Scribble Leap
 
-Created at a one week camp at the Academy for Game Development at the Univeristy of Texas at Austin "Computer Science"
+Created at a one week camp at the Academy for Game Development at the Univeristy of Texas at Austin 
 
 
 
