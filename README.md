@@ -29,26 +29,26 @@ https://glitch.com/edit/#!/scribbleleap
 Clone the project
 
 ```bash
-  git clone https://github.com/Rishi-prog731/doodle-clone.git
+git clone https://github.com/Rishi-prog731/doodle-clone.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd doodle-clone
+cd doodle-clone
 ```
 
 Install dependencies
 
 ```bash
-   npm install -g live-server
+npm install -g live-server
 ```
 
 Start the server
 
 ```bash
-  http-server
-  live-server
+http-server
+live-server
 ```
 
 
