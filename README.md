@@ -78,7 +78,7 @@ https://scribbleleap.glitch.me
 
 **Default:** index.html; Add path for testing file
 
-#Glitch Code
+## Glitch Code
 https://glitch.com/edit/#!/scribbleleap
 
 **Status:** Incomplete; Glitch Code wo/ .github and images
