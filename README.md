@@ -67,5 +67,7 @@ live-server
 **Music:** Milan (Creating and Mixing), William (Creating and Mixing)
 
 
+**Led by:** Rishi
+
 ## Releases
 - [Scribble Leap V1](https://github.com/Rishi-prog731/doodle-clone/releases/tag/scribble-leap)
