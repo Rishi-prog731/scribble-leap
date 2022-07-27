@@ -65,3 +65,7 @@ live-server
 **Art:** Andy (Sprites, General Design), Ryan (Sprites, General Design)
 
 **Music:** Milan (Creating and Mixing), William (Creating and Mixing)
+
+
+## Releases
+- [Scribble Leap V1](https://github.com/Rishi-prog731/doodle-clone/releases/tag/scribble-leap)
