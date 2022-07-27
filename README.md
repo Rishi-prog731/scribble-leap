@@ -82,4 +82,5 @@ https://scribbleleap.glitch.me
 https://glitch.com/edit/#!/scribbleleap
 
 **Status:** Incomplete; Glitch Code wo/ .github and images
+
 **Image Status:** Embed into Glitch. Manually imported into GitHub
