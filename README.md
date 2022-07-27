@@ -60,14 +60,14 @@ live-server
 
 ## Credits
 
+**Led by:** Rishi
+
 **Coding:** Andy (JSON files), William (General Physics/ Design), Milan (Music Implementation) 
 
 **Art:** Andy (Sprites, General Design), Ryan (Sprites, General Design)
 
 **Music:** Milan (Creating and Mixing), William (Creating and Mixing)
 
-
-**Led by:** Rishi
 
 ## Releases
 - [Scribble Leap V1](https://github.com/Rishi-prog731/doodle-clone/releases/tag/scribble-leap)
