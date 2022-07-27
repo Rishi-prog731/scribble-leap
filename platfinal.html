@@ -159,10 +159,15 @@
         lastPlatformY -= 100;
         let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
         platform.setScale(.3, .3). refreshBody();
+        if (player.body.position.y-platform.body.position.y > Sheight/2){
+          console.log("player Y ")
+          platform.disableBody();
+        }
         platform.body.checkCollision.down = false;
         platform.body.checkCollision.right = false;
         platform.body.checkCollision.left = false;
         platform.body.checkCollision.up = true;
+
       }
 
       function update() {

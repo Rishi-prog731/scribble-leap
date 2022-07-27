@@ -48,6 +48,7 @@
       var maxSpeed = 750;
       var lastPlatformY = 800;
       var highestPlayerY = Sheight;
+      var dead = false;
 
       function preload() {
         //this.load.image('sky', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fbackground.png?1658781131738');
@@ -162,7 +163,8 @@
       }
       
       function gameOver() {
-        console.log("Game Over :(")
+        dead = true;
+        console.log("Game Over :(");
       }
 
       function update() {
@@ -171,19 +173,29 @@
         }*/
         if (player.body.position.y < highestPlayerY) {
           highestPlayerY = player.body.position.y;
-          console.log("trackin")
-        } else if (player.body.position > highestPlayerY + 1000){
+          console.log("trackin");
+        }
+        if (player.body.position.y > highestPlayerY + 1000 && dead != true){
           gameOver();
         }
-        if (player.body.position.y < lastPlatformY + Swidth + 200) {
-          while (player.body.position.y < lastPlatformY + Swidth + 200) {
+        
+        //make platforms
+        if (player.body.position.y < lastPlatformY + Sheight + 200) {
+          while (player.body.position.y < lastPlatformY + Sheight + 200) {
             generatePlatform(this);
             this.physics.add.collider(player, platforms);
           }
         }
+        
         this.physics.add.collider(player, platforms);
-        this.cameras.main.centerOnX(Swidth/2);
-        this.cameras.main.centerOnY(player.body.position.y);
+        if (dead != true){
+          this.cameras.main.centerOnY(player.body.position.y);
+        }
+        
+        if (player.body.position.y > highestPlayerY + 1000 + Sheight/2) {
+          pause();
+        }
+        
         // console.log(paused);
         //console.log(player.x);
         //Player will not move in the x-axis unless a movement key is being pressed

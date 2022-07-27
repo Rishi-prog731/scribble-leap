@@ -1,0 +1,18 @@
+{
+  "frames": {
+    "Platform20.png": {
+      "frame": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    }
+  },
+  "meta": {
+    "app": "https://github.com/piskelapp/piskel/",
+    "version": "1.0",
+    "image": "Platform2.png",
+    "format": "RGBA8888",
+    "size": { "w": 269, "h": 73 }
+  }
+}
