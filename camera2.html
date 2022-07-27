@@ -117,8 +117,6 @@
         player = new Player(this, 400, 400, "slime", playerAnimations);
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
-        this.cameras.main.startFollow(player, true, 0.09, 0.09);
-        this.cameras.main.setZoom(2);
         //Set up user input
         cursors = this.input.keyboard.createCursorKeys();
         keys = this.input.keyboard.addKeys("A, D");
@@ -154,10 +152,7 @@
         //console.log(player.x);
         //Player will not move in the x-axis unless a movement key is being pressed
         //player.setVelocityX(0);
-
-        //Player has "drag" on the x-axis meaning they slide a bit after an input
-        player.setDragX(1000);
-
+        this.camera.mainsetPosition(Swidth/2, player.body.position.y);
         //Handle player movements
         if (cursors.left.isDown || keys.A.isDown) {
           if (player.body.velocity.x > -maxSpeed) {

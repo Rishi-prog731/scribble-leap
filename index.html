@@ -47,6 +47,7 @@
       var graphics;
       var acceleration = 2000;
       var maxSpeed = 750;
+      var lastPlatformY = 1000;
 
       function preload() {
         //this.load.image('sky', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fbackground.png?1658781131738');
@@ -60,13 +61,14 @@
           "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fplatform.png?1658777114483"
         );
         this.load.atlas(
-          "mcSprite",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcWalkingSprite2.png?1658852247676",
-          "mcSprite.json"
+          "slime",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/slimesheet.png?1658777114399",
+          "slimesheet.json"
         );
       }
 
       function create() {
+        var theScene = this;
         //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
         let background = this.add
           .tileSprite(0, 0, game.scale.width, game.scale.height, "sky")
@@ -76,9 +78,9 @@
 
         let playerAnimations = {};
         var idle = this.anims.create({
-          key: "mcSpriteIdle",
-          frames: this.anims.generateFrameNames("mcSprite", {
-            prefix: "mcSpriteIdle",
+          key: "slime_idle",
+          frames: this.anims.generateFrameNames("slime", {
+            prefix: "slime_idle",
             end: 5,
             zeroPad: 2,
           }),
@@ -87,9 +89,9 @@
         });
         playerAnimations["idle"] = idle;
         var left = this.anims.create({
-          key: "mcSpriteLeft",
-          frames: this.anims.generateFrameNames("mcSprite", {
-            prefix: "mcSpriteLeft",
+          key: "slime_left",
+          frames: this.anims.generateFrameNames("slime", {
+            prefix: "slime_left",
             end: 5,
             zeroPad: 2,
           }),
@@ -98,9 +100,9 @@
         });
         playerAnimations["left"] = left;
         var right = this.anims.create({
-          key: "mcSpriteRight",
-          frames: this.anims.generateFrameNames("mcSprite", {
-            prefix: "mcSpriteRight",
+          key: "slime_right",
+          frames: this.anims.generateFrameNames("slime", {
+            prefix: "slime_right",
             end: 5,
             zeroPad: 2,
           }),
@@ -113,7 +115,7 @@
         //Create the platforms and the player character set to collide with the platforms
         createPlatforms(this);
 
-        player = new Player(this, 400, 400, "mcSprite", playerAnimations);
+        player = new Player(this, 400, 400, "slime", playerAnimations);
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
 
@@ -139,11 +141,31 @@
         );
         basePlatform.setScale(3, 1).refreshBody();
 
-        platforms.create(500, 250, "platform");
-        platforms.create(950, 400, "platform");
+        
+        platform1 = platforms.create(950, 700, "platform");
+        platform1.body.checkCollision.down = false;
+        platform1.body.checkCollision.right = false;
+        platform1.body.checkCollision.left = false;
+      }
+      
+      function generatePlatform(scene) {
+        platforms = scene.physics.add.staticGroup();
+        lastPlatformY -= 100;
+        let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
+        platform.body.checkCollision.down = false;
+        platform.body.checkCollision.right = false;
+        platform.body.checkCollision.left = false;
+        platform.body.checkCollision.up = true;
       }
 
       function update() {
+        console.log(player.body.position.x + ", " + player.body.position.y);
+        if (lastPlatformY > 0) {
+          generatePlatform(this);
+        }
+        this.physics.add.collider(player, platforms);
+        this.cameras.main.centerOnX(Swidth/2);
+        this.cameras.main.centerOnY(player.body.position.y);
         // console.log(paused);
         //console.log(player.x);
         //Player will not move in the x-axis unless a movement key is being pressed
@@ -203,9 +225,10 @@
       }
       function jump(event) {
         if (player.body.touching.down) {
-          player.setVelocityY(-600);
+          player.setVelocityY(-1000);
         }
       }
+      
 
       class Player extends Phaser.Physics.Arcade.Sprite {
         animations;
@@ -222,3 +245,4 @@
     </script>
   </body>
 </html>
+

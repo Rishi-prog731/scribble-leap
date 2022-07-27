@@ -61,13 +61,9 @@
         );
         this.load.atlas(
           "player",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIdle00.png?1658865240372",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIdle00.png?1658933312544",
           "mcSpriteIdle00.json"
         );
-        this.load.atlas(
-          "playerF",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIdleF00.png?1658867810934",
-          "mcSpriteIdleF00.json")
       }
 
       function create() {
@@ -78,7 +74,7 @@
           .setOrigin(0, 0);
 
         //create all animations
-       // this.cameras.main.setZoom(4);
+        // this.cameras.main.setZoom(4);
         let playerAnimations = {};
         var idle = this.anims.create({
           key: "player_idle",
@@ -94,7 +90,7 @@
         var left = this.anims.create({
           key: "player_left",
           frames: this.anims.generateFrameNames("player", {
-            prefix: "mcSpriteIdleF",
+            prefix: "mcSpriteIdle",
             end: 1,
             zeroPad: 2,
           }),
@@ -110,7 +106,7 @@
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 10,
+          frameRate: 2,
         });
         playerAnimations["right"] = right;
         var maxSpeed;
@@ -146,7 +142,7 @@
         basePlatform.setScale(3, 1).refreshBody();
 
         platforms.create(500, 250, "platform");
-        
+
         platform1 = platforms.create(950, 700, "platform");
         platform1.body.checkCollision.down = false;
         platform1.body.checkCollision.right = false;
@@ -216,7 +212,6 @@
           player.setVelocityY(-1000);
         }
       }
-      
 
       class Player extends Phaser.Physics.Arcade.Sprite {
         animations;
@@ -233,4 +228,3 @@
     </script>
   </body>
 </html>
-

@@ -70,9 +70,9 @@
         //this.cameras.main.setBounds(0, 0, Swidth, 10000, true);
        // this.cameras.main.setDeadzone( 200,200)
         //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
-        let background = this.add
+        var background = this.add
           .tileSprite(0, 0, game.scale.width, game.scale.height, "sky")
-          .setOrigin(0, 0);
+          .setOrigin(0, this.cameras.main.y);
 
         //create all animations
        // this.cameras.main.setZoom(4);
@@ -113,12 +113,14 @@
         var maxSpeed;
 
         //Create the platforms and the player character set to collide with the platforms
-        createPlatforms(this);
+
 
         player = new Player(this, 400, 400, "slime", playerAnimations);
+        createPlatforms(this);
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
-        this.cameras.main.startFollow(player, true, 0.09, 0.09);
+       // this.cameras.main.startFollow(player, true, .09, .09); //make camera jiggle
+
         this.cameras.main.setZoom(1);//set this to one to see whole start area
         //Set up user input
         cursors = this.input.keyboard.createCursorKeys();
@@ -135,16 +137,13 @@
         platforms = scene.physics.add.staticGroup();
         
         //basePlatform is the floor of the game
-        let randomPlatform = platforms.create(
-          game.scale.width / 2,
-          game.scale.height - 30,
-          "platform"
+        var startingPlatform = platforms.create(player.body.position.x, player.body.position.y + Sheight/10, "platform"
         );
         let x = 0;
-        randomPlatform.setScale(.3, .3).refreshBody();
+        startingPlatform.setScale(.3, .3).refreshBody();
         while (x<10000){
-          platform1 = platforms.create(x, x, "platform");
-          platform1.setScale(.3, .3). refreshBody
+          platform1 = platforms.create(x, x+200, "platform");
+          platform1.setScale(.3, .3). refreshBody();
           platform1.body.checkCollision.down = false;
           platform1.body.checkCollision.right = false;
           platform1.body.checkCollision.left = false;
@@ -158,6 +157,8 @@
       }
 
       function update() {
+        //this.background.setOrigin(0,0)
+        
         // console.log(paused);
         //console.log(player.x);
         //Player will not move in the x-axis unless a movement key is being pressed
@@ -165,7 +166,8 @@
 
         //Player has "drag" on the x-axis meaning they slide a bit after an input
         player.setDragX(1000);
-
+        this.cameras.main.centerOnX(Swidth/2);
+        this.cameras.main.centerOnY(player.body.position.y);
         //Handle player movements
         if (cursors.left.isDown || keys.A.isDown) {
           if (player.body.velocity.x > -maxSpeed) {

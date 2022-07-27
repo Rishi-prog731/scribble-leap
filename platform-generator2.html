@@ -156,16 +156,16 @@
         platform.body.checkCollision.right = false;
         platform.body.checkCollision.left = false;
         platform.body.checkCollision.up = true;
-        
-
-        console.log("working");
       }
 
       function update() {
+        console.log(player.body.position.x + ", " + player.body.position.y);
         if (lastPlatformY > 0) {
           generatePlatform(this);
         }
         this.physics.add.collider(player, platforms);
+        this.cameras.main.centerOnX(Swidth/2);
+        this.cameras.main.centerOnY(player.body.position.y);
         // console.log(paused);
         //console.log(player.x);
         //Player will not move in the x-axis unless a movement key is being pressed
