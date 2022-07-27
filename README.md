@@ -71,3 +71,15 @@ live-server
 
 ## Releases
 - [Scribble Leap V1](https://github.com/Rishi-prog731/doodle-clone/releases/tag/scribble-leap)
+
+
+## Live Website
+https://scribbleleap.glitch.me
+
+**Default:** index.html; Add path for testing file
+
+#Glitch Code
+https://glitch.com/edit/#!/scribbleleap
+
+**Status:** Incomplete; Glitch Code wo/ .github and images
+**Image Status:** Embed into Glitch. Manually imported into GitHub
