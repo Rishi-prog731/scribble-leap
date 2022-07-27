@@ -116,7 +116,11 @@
 
 
         player = new Player(this, 400, 400, "slime", playerAnimations);
+
         createPlatforms(this);
+        var startingPlatform = platforms.create(player.body.position.x, player.body.position.y + Sheight/10, "platform");
+        startingPlatform.setScale(.3, .3).refreshBody(); //makes base platform
+        
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
        // this.cameras.main.startFollow(player, true, .09, .09); //make camera jiggle
@@ -137,18 +141,17 @@
         platforms = scene.physics.add.staticGroup();
         
         //basePlatform is the floor of the game
-        var startingPlatform = platforms.create(player.body.position.x, player.body.position.y + Sheight/10, "platform"
-        );
+
         let x = 0;
-        startingPlatform.setScale(.3, .3).refreshBody();
-        while (x<10000){
-          platform1 = platforms.create(x, x+200, "platform");
+
+        while (x<100){
+          platform1 = platforms.create(player.body.position.x + Math.floor(Math.random() * 500), player.body.position.y + Math.floor(Math.random() * 100) , "platform");
           platform1.setScale(.3, .3). refreshBody();
           platform1.body.checkCollision.down = false;
           platform1.body.checkCollision.right = false;
           platform1.body.checkCollision.left = false;
           console.log(platform1);
-          x+=100;
+          x+=1;
           
         }
         platforms.create(1000, 100, "platform");

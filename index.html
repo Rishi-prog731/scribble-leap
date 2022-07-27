@@ -58,16 +58,21 @@
         );
         this.load.image(
           "platform",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fplatform.png?1658777114483"
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/Platform1.png?1658934898080"
         );
         this.load.atlas(
-          "slime",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/slimesheet.png?1658777114399",
-          "slimesheet.json"
+          "player",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIdle00.png?1658933312544",
+          "mcSpriteIdle00.json"
         );
       }
 
       function create() {
+        /* audio code here
+        var audio = new Audio('bgmusic.mp3');
+        audio.play();
+        
+        */
         var theScene = this;
         //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
         let background = this.add
@@ -78,44 +83,44 @@
 
         let playerAnimations = {};
         var idle = this.anims.create({
-          key: "slime_idle",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_idle",
-            end: 5,
+          key: "player_idle",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "mcSpriteIdle",
+            end: 1,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 10,
+          frameRate: 2,
         });
         playerAnimations["idle"] = idle;
         var left = this.anims.create({
-          key: "slime_left",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_left",
-            end: 5,
+          key: "player_left",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "mcSpriteLeft",
+            end: 1,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 10,
+          frameRate: 2,
         });
         playerAnimations["left"] = left;
         var right = this.anims.create({
-          key: "slime_right",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_right",
-            end: 5,
+          key: "player_right",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "mcSpriteIdle",
+            end: 1,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 10,
+          frameRate: 2,
         });
         playerAnimations["right"] = right;
         var maxSpeed;
 
         //Create the platforms and the player character set to collide with the platforms
-        createPlatforms(this);
+        startingPlatforms(this);
 
-        player = new Player(this, 400, 400, "slime", playerAnimations);
+        player = new Player(this, 400, 400, "player", playerAnimations);
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
 
@@ -130,7 +135,7 @@
         graphics = this.add.graphics();
       }
 
-      function createPlatforms(scene) {
+      function startingPlatforms(scene) {
         platforms = scene.physics.add.staticGroup();
 
         //basePlatform is the floor of the game
@@ -140,12 +145,15 @@
           "platform"
         );
         basePlatform.setScale(3, 1).refreshBody();
-
+        while (lastPlatformY > 200) {
+          lastPlatformY -= 100;
+          let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
+          platform.body.checkCollision.down = false;
+          platform.body.checkCollision.right = false;
+          platform.body.checkCollision.left = false;
+          platform.body.checkCollision.up = true;
+        }
         
-        platform1 = platforms.create(950, 700, "platform");
-        platform1.body.checkCollision.down = false;
-        platform1.body.checkCollision.right = false;
-        platform1.body.checkCollision.left = false;
       }
       
       function generatePlatform(scene) {
@@ -159,9 +167,14 @@
       }
 
       function update() {
-        console.log(player.body.position.x + ", " + player.body.position.y);
-        if (lastPlatformY > 0) {
+        /*if (lastPlatformY > 0) {
           generatePlatform(this);
+        }*/
+        if (player.body.position.y < lastPlatformY + Swidth + 200) {
+          while (player.body.position.y < lastPlatformY + Swidth + 200) {
+            generatePlatform(this);
+            this.physics.add.collider(player, platforms);
+          }
         }
         this.physics.add.collider(player, platforms);
         this.cameras.main.centerOnX(Swidth/2);
@@ -219,7 +232,7 @@
         //let pauseX = player.x;
         //let pauseY = player.y;
         //player.setAccelerationX(0);
-        //player.setPosition(pauseX,pauseY);
+        //player.html setPosition(pauseX,pauseY);
         //player.setVelocityY(0);
         //console.log(pauseX)
       }

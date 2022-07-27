@@ -14,14 +14,14 @@
       "spriteSourceSize": { "x": 0, "y": 0, "w": 34, "h": 34 },
       "sourceSize": { "w": 34, "h": 34 }
     },
-    "mcSpriteIdle02": {
+    "mcSpriteLeft00": {
       "frame": { "x": 0, "y": 34, "w": 34, "h": 34 },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": { "x": 0, "y": 0, "w": 34, "h": 34 },
       "sourceSize": { "w": 34, "h": 34 }
     },
-    "mcSpriteIdle03": {
+    "mcSpriteLeft01": {
       "frame": { "x": 34, "y": 34, "w": 34, "h": 34 },
       "rotated": false,
       "trimmed": false,

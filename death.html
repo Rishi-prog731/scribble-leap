@@ -8,7 +8,6 @@
   </head>
 
   <body style="background-color: black">
-    <li><a href="V1copy.html">V1copy.html</a></li>
     <script>
       //var Swidth = screen.width;
       // var Sheight = screen.height;
@@ -47,78 +46,79 @@
       var graphics;
       var acceleration = 2000;
       var maxSpeed = 750;
+      var lastPlatformY = 800;
+      var highestPlayerY = 0;
 
       function preload() {
         //this.load.image('sky', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fbackground.png?1658781131738');
 
         this.load.image(
           "sky",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/2348545427.png?1658935443568"
+          " https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0ca0366a-2924-452d-8c9d-0f8617807e22/dcatq78-8b3818c2-9e03-4179-9601-e87ac825a0ef.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzBjYTAzNjZhLTI5MjQtNDUyZC04YzlkLTBmODYxNzgwN2UyMlwvZGNhdHE3OC04YjM4MThjMi05ZTAzLTQxNzktOTYwMS1lODdhYzgyNWEwZWYuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.kk1b_iX4C7FU7Usd6TfmN7UlSVFXjRWK4zMxk7wcL_0"
         );
         this.load.image(
           "platform",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/Platform1.png?1658934898080"
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fplatform.png?1658777114483"
         );
         this.load.atlas(
-          "player",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIdle00.png?1658933312544",
-          "mcSpriteIdle00.json"
+          "slime",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/slimesheet.png?1658777114399",
+          "slimesheet.json"
         );
       }
 
       function create() {
-        this.cameras.main.setBounds(0, 0, Swidth, Sheight);
+        var theScene = this;
         //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
         let background = this.add
           .tileSprite(0, 0, game.scale.width, game.scale.height, "sky")
           .setOrigin(0, 0);
 
         //create all animations
-        // this.cameras.main.setZoom(4);
+
         let playerAnimations = {};
         var idle = this.anims.create({
-          key: "player_idle",
-          frames: this.anims.generateFrameNames("player", {
-            prefix: "mcSpriteIdle",
-            end: 1,
+          key: "slime_idle",
+          frames: this.anims.generateFrameNames("slime", {
+            prefix: "slime_idle",
+            end: 5,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 2,
+          frameRate: 10,
         });
         playerAnimations["idle"] = idle;
         var left = this.anims.create({
-          key: "player_left",
-          frames: this.anims.generateFrameNames("player", {
-            prefix: "mcSpriteLeft",
-            end: 1,
+          key: "slime_left",
+          frames: this.anims.generateFrameNames("slime", {
+            prefix: "slime_left",
+            end: 5,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 2,
+          frameRate: 10,
         });
         playerAnimations["left"] = left;
         var right = this.anims.create({
-          key: "player_right",
-          frames: this.anims.generateFrameNames("player", {
-            prefix: "mcSpriteIdle",
-            end: 1,
+          key: "slime_right",
+          frames: this.anims.generateFrameNames("slime", {
+            prefix: "slime_right",
+            end: 5,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 2,
+          frameRate: 10,
         });
         playerAnimations["right"] = right;
         var maxSpeed;
 
         //Create the platforms and the player character set to collide with the platforms
-        createPlatforms(this);
+        startingPlatforms(this);
 
-        player = new Player(this, 400, 400, "player", playerAnimations);
+        player = new Player(this, 400, 400, "slime", playerAnimations);
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
-        this.cameras.main.startFollow(player, true, 0.09, 0.09);
-        this.cameras.main.setZoom(2);
+
         //Set up user input
         cursors = this.input.keyboard.createCursorKeys();
         keys = this.input.keyboard.addKeys("A, D");
@@ -130,7 +130,7 @@
         graphics = this.add.graphics();
       }
 
-      function createPlatforms(scene) {
+      function startingPlatforms(scene) {
         platforms = scene.physics.add.staticGroup();
 
         //basePlatform is the floor of the game
@@ -139,17 +139,42 @@
           game.scale.height - 30,
           "platform"
         );
-        basePlatform.setScale(3, 1).refreshBody();
-
-        platforms.create(500, 250, "platform");
-
-        platform1 = platforms.create(950, 700, "platform");
-        platform1.body.checkCollision.down = false;
-        platform1.body.checkCollision.right = false;
-        platform1.body.checkCollision.left = false;
+        basePlatform.setScale(8, 1).refreshBody();
+        while (lastPlatformY > 200) {
+          lastPlatformY -= 100;
+          let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
+          platform.body.checkCollision.down = false;
+          platform.body.checkCollision.right = false;
+          platform.body.checkCollision.left = false;
+          platform.body.checkCollision.up = true;
+        }
+        
+      }
+      
+      function generatePlatform(scene) {
+        platforms = scene.physics.add.staticGroup();
+        lastPlatformY -= 100;
+        let platform = platforms.create(Math.random()*Swidth, lastPlatformY, "platform");
+        platform.body.checkCollision.down = false;
+        platform.body.checkCollision.right = false;
+        platform.body.checkCollision.left = false;
+        platform.body.checkCollision.up = true;
       }
 
       function update() {
+        /*if (lastPlatformY > 0) {
+          generatePlatform(this);
+        }*/
+        if (player.body.position.highestPlayerY )
+        if (player.body.position.y < lastPlatformY + Swidth + 200) {
+          while (player.body.position.y < lastPlatformY + Swidth + 200) {
+            generatePlatform(this);
+            this.physics.add.collider(player, platforms);
+          }
+        }
+        this.physics.add.collider(player, platforms);
+        this.cameras.main.centerOnX(Swidth/2);
+        this.cameras.main.centerOnY(player.body.position.y);
         // console.log(paused);
         //console.log(player.x);
         //Player will not move in the x-axis unless a movement key is being pressed
@@ -212,6 +237,7 @@
           player.setVelocityY(-1000);
         }
       }
+      
 
       class Player extends Phaser.Physics.Arcade.Sprite {
         animations;
@@ -228,3 +254,4 @@
     </script>
   </body>
 </html>
+
