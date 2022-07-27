@@ -58,3 +58,8 @@ live-server
 
 **Server:** Glitch
 
+## Credits
+
+**Coding:** Andy (JSON files), William (General Physics/ Design), Milan (Music Implementation) 
+**Art:** Andy (Sprites, General Design), Ryan (Sprites, General Design)
+**Music:** Milan (Creating and Mixing), William (Creating and Mixing)
