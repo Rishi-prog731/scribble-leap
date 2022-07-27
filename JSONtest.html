@@ -53,7 +53,7 @@
 
         this.load.image(
           "sky",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/2348545427.png?1658935443568"
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/Space%20Background(1).png?1658935900304"
         );
         this.load.image(
           "platform",
@@ -112,13 +112,12 @@
         var maxSpeed;
 
         //Create the platforms and the player character set to collide with the platforms
-        createPlatforms(this);
+        startingPlatforms(this);
 
         player = new Player(this, 400, 400, "player", playerAnimations);
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
-        this.cameras.main.startFollow(player, true, 0.09, 0.09);
-        this.cameras.main.setZoom(2);
+
         //Set up user input
         cursors = this.input.keyboard.createCursorKeys();
         keys = this.input.keyboard.addKeys("A, D");
@@ -130,7 +129,7 @@
         graphics = this.add.graphics();
       }
 
-      function createPlatforms(scene) {
+      function startingPlatforms(scene) {
         platforms = scene.physics.add.staticGroup();
 
         //basePlatform is the floor of the game
@@ -140,16 +139,40 @@
           "platform"
         );
         basePlatform.setScale(3, 1).refreshBody();
-
-        platforms.create(500, 250, "platform");
-
-        platform1 = platforms.create(950, 700, "platform");
-        platform1.body.checkCollision.down = false;
-        platform1.body.checkCollision.right = false;
-        platform1.body.checkCollision.left = false;
+        while (lastPlatformY > 200) {
+          lastPlatformY -= 100;
+          let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
+          platform.body.checkCollision.down = false;
+          platform.body.checkCollision.right = false;
+          platform.body.checkCollision.left = false;
+          platform.body.checkCollision.up = true;
+        }
+        
+      }
+      
+      function generatePlatform(scene) {
+        platforms = scene.physics.add.staticGroup();
+        lastPlatformY -= 100;
+        let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
+        platform.body.checkCollision.down = false;
+        platform.body.checkCollision.right = false;
+        platform.body.checkCollision.left = false;
+        platform.body.checkCollision.up = true;
       }
 
       function update() {
+        /*if (lastPlatformY > 0) {
+          generatePlatform(this);
+        }*/
+        if (player.body.position.y < lastPlatformY + Swidth + 200) {
+          while (player.body.position.y < lastPlatformY + Swidth + 200) {
+            generatePlatform(this);
+            this.physics.add.collider(player, platforms);
+          }
+        }
+        this.physics.add.collider(player, platforms);
+        this.cameras.main.centerOnX(Swidth/2);
+        this.cameras.main.centerOnY(player.body.position.y);
         // console.log(paused);
         //console.log(player.x);
         //Player will not move in the x-axis unless a movement key is being pressed
@@ -203,7 +226,7 @@
         //let pauseX = player.x;
         //let pauseY = player.y;
         //player.setAccelerationX(0);
-        //player.setPosition(pauseX,pauseY);
+        //player.html setPosition(pauseX,pauseY);
         //player.setVelocityY(0);
         //console.log(pauseX)
       }
@@ -212,6 +235,7 @@
           player.setVelocityY(-1000);
         }
       }
+      
 
       class Player extends Phaser.Physics.Arcade.Sprite {
         animations;

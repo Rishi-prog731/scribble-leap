@@ -47,7 +47,7 @@
       var acceleration = 2000;
       var maxSpeed = 750;
       var lastPlatformY = 800;
-      var highestPlayerY = 0;
+      var highestPlayerY = Sheight;
 
       function preload() {
         //this.load.image('sky', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fbackground.png?1658781131738');
@@ -160,12 +160,21 @@
         platform.body.checkCollision.left = false;
         platform.body.checkCollision.up = true;
       }
+      
+      function gameOver() {
+        console.log("Game Over :(")
+      }
 
       function update() {
         /*if (lastPlatformY > 0) {
           generatePlatform(this);
         }*/
-        if (player.body.position.highestPlayerY )
+        if (player.body.position.y < highestPlayerY) {
+          highestPlayerY = player.body.position.y;
+          console.log("trackin")
+        } else if (player.body.position > highestPlayerY + 1000){
+          gameOver();
+        }
         if (player.body.position.y < lastPlatformY + Swidth + 200) {
           while (player.body.position.y < lastPlatformY + Swidth + 200) {
             generatePlatform(this);

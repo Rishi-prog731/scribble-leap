@@ -116,6 +116,8 @@
         startingPlatforms(this);
 
         player = new Player(this, 400, 400, "player", playerAnimations);
+        var startingPlatform = platforms.create(player.body.position.x, player.body.position.y + Sheight/10, "platform");
+        startingPlatform.setScale(.3, .3).refreshBody(); //makes base platform
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
 
@@ -139,10 +141,11 @@
           game.scale.height - 30,
           "platform"
         );
-        basePlatform.setScale(3, 1).refreshBody();
+        basePlatform.setScale(.3, .3). refreshBody();
         while (lastPlatformY > 200) {
           lastPlatformY -= 100;
           let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
+          platform.setScale(.3, .3). refreshBody();
           platform.body.checkCollision.down = false;
           platform.body.checkCollision.right = false;
           platform.body.checkCollision.left = false;
@@ -155,6 +158,7 @@
         platforms = scene.physics.add.staticGroup();
         lastPlatformY -= 100;
         let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
+        platform.setScale(.3, .3). refreshBody();
         platform.body.checkCollision.down = false;
         platform.body.checkCollision.right = false;
         platform.body.checkCollision.left = false;
@@ -213,6 +217,7 @@
         if (player.body.touching.down) {
           jump();
         }
+        
       }
       function pause() {
         paused = paused + 1;
