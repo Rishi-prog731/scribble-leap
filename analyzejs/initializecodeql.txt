@@ -1,0 +1,127 @@
+Run github/codeql-action/init@v2
+  with:
+    languages: javascript
+    token: ***
+    matrix: {
+    "language": "javascript"
+  }
+    setup-python-dependencies: true
+    debug: false
+Setup CodeQL tools
+  /opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/codeql version --format=terse
+  2.10.0
+  /opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/codeql version --format=json
+  {
+    "productName" : "CodeQL",
+    "vendor" : "GitHub",
+    "version" : "2.10.0",
+    "sha" : "8a9c76c7001a83d4695f38f6e74a2db60746d1a5",
+    "branches" : [
+      "codeql-cli-2.10.0"
+    ],
+    "copyright" : "Copyright (C) 2019-2022 GitHub, Inc.",
+    "unpackedLocation" : "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql",
+    "configFileLocation" : "/home/runner/.config/codeql/config",
+    "configFileFound" : false
+  }
+Load language configuration
+  Languages from configuration: ["javascript"]
+  /opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/codeql resolve queries javascript-code-scanning.qls --format=bylanguage
+  {
+    "byLanguage" : {
+      "javascript" : {
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/AngularJS/DisablingSce.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/AngularJS/DoubleCompilation.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/AngularJS/InsecureUrlWhitelist.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/DOM/TargetBlank.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Electron/AllowRunningInsecureContent.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Electron/DisablingWebSecurity.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Performance/PolynomialReDoS.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Performance/ReDoS.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/RegExp/IdentityReplacement.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-020/IncompleteHostnameRegExp.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-020/IncompleteUrlSchemeCheck.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-020/IncompleteUrlSubstringSanitization.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-020/IncorrectSuffixCheck.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-020/UselessRegExpCharacterEscape.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-022/TaintedPath.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-022/ZipSlip.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-073/TemplateObjectInjection.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-078/CommandInjection.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-078/ShellCommandInjectionFromEnvironment.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-078/UnsafeShellCommandConstruction.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-078/UselessUseOfCat.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-079/ExceptionXss.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-079/ReflectedXss.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-079/StoredXss.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-079/UnsafeHtmlConstruction.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-079/UnsafeJQueryPlugin.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-079/Xss.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-079/XssThroughDom.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-089/SqlInjection.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-094/CodeInjection.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-094/ExpressionInjection.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-094/ImproperCodeSanitization.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-094/UnsafeDynamicMethodAccess.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-1004/ClientExposedCookie.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-116/BadTagFilter.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-116/DoubleEscaping.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-116/IncompleteHtmlAttributeSanitization.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-116/IncompleteMultiCharacterSanitization.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-116/IncompleteSanitization.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-116/UnsafeHtmlExpansion.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-134/TaintedFormatString.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-200/PrivateFileExposure.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-201/PostMessageStar.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-209/StackTraceExposure.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-295/DisablingCertificateValidation.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-300/InsecureDependencyResolution.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-312/BuildArtifactLeak.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-312/CleartextLogging.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-312/CleartextStorage.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-326/InsufficientKeySize.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-327/BadRandomness.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-327/BrokenCryptoAlgorithm.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-338/InsecureRandomness.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-346/CorsMisconfigurationForCredentials.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-347/MissingJWTKeyVerification.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-352/MissingCsrfMiddleware.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-400/DeepObjectResourceExhaustion.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-502/UnsafeDeserialization.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-598/SensitiveGetQuery.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-601/ClientSideUrlRedirect.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-601/ServerSideUrlRedirect.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-611/Xxe.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-614/ClearTextCookie.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-640/HostHeaderPoisoningInEmailGeneration.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-643/XpathInjection.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-730/RegExpInjection.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-730/ServerCrash.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-754/UnvalidatedDynamicMethodCall.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-770/MissingRateLimiting.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-770/ResourceExhaustion.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-776/XmlBomb.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-798/HardcodedCredentials.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-829/InsecureDownload.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-830/FunctionalityFromUntrustedSource.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-834/LoopBoundInjection.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-843/TypeConfusionThroughParameterTampering.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-915/PrototypePollutingAssignment.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-915/PrototypePollutingFunction.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-915/PrototypePollutingMergeCall.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-916/InsufficientPasswordHash.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Security/CWE-918/RequestForgery.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Diagnostics/ExtractionErrors.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Diagnostics/SuccessfullyExtractedFiles.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Summary/LinesOfCode.ql" : { },
+        "/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/qlpacks/codeql/javascript-queries/0.2.0/Summary/LinesOfUserCode.ql" : { }
+      }
+    },
+    "noDeclaredLanguage" : { },
+    "multipleDeclaredLanguages" : { }
+  }
+/opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/codeql database init --db-cluster /home/runner/work/_temp/codeql_databases --source-root=/home/runner/work/scribble-leap/scribble-leap --language=javascript
+Counting lines of code in /home/runner/work/scribble-leap/scribble-leap
+Resolving extractor javascript.
+Successfully loaded extractor JavaScript (javascript) from /opt/hostedtoolcache/CodeQL/0.0.0-20220623/x64/codeql/javascript.
+Created skeleton CodeQL database at /home/runner/work/_temp/codeql_databases/javascript. This in-progress database is ready to be populated by an extractor.
