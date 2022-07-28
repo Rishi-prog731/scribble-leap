@@ -29,13 +29,13 @@ https://glitch.com/edit/#!/scribbleleap
 Clone the project
 
 ```bash
-git clone https://github.com/Rishi-prog731/doodle-clone.git
+git clone https://github.com/Rishi-prog731/scribble-leap.git
 ```
 
 Go to the project directory
 
 ```bash
-cd doodle-clone
+cd scribble-leap
 ```
 
 Install dependencies
@@ -70,7 +70,7 @@ live-server
 
 
 ## Releases
-- [Scribble Leap V1](https://github.com/Rishi-prog731/doodle-clone/releases/tag/scribble-leap)
+- [Scribble Leap V3 Released](https://github.com/Rishi-prog731/scribble-leap/tags)
 
 
 ## Live Website
