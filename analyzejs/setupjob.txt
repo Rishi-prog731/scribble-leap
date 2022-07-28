@@ -1,0 +1,23 @@
+Current runner version: '2.294.0'
+Operating System
+  Ubuntu
+  20.04.4
+  LTS
+Virtual Environment
+  Environment: ubuntu-20.04
+  Version: 20220724.1
+  Included Software: https://github.com/actions/virtual-environments/blob/ubuntu20/20220724.1/images/linux/Ubuntu2004-Readme.md
+  Image Release: https://github.com/actions/virtual-environments/releases/tag/ubuntu20%2F20220724.1
+Virtual Environment Provisioner
+  1.0.0.0-main-20220701-2
+GITHUB_TOKEN Permissions
+  Actions: read
+  Contents: read
+  Metadata: read
+  SecurityEvents: write
+Secret source: Actions
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 'actions/checkout@v3' (SHA:2541b1294d2704b0964813337f33b291d3f8596b)
+Download action repository 'github/codeql-action@v2' (SHA:3e7e3b32d0fb8283594bb0a76cc60a00918b0969)
