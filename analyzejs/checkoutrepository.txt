@@ -1,0 +1,226 @@
+Run actions/checkout@v3
+  with:
+    repository: Rishi-prog731/scribble-leap
+    token: ***
+    ssh-strict: true
+    persist-credentials: true
+    clean: true
+    fetch-depth: 1
+    lfs: false
+    submodules: false
+    set-safe-directory: true
+Syncing repository: Rishi-prog731/scribble-leap
+Getting Git version info
+  Working directory is '/home/runner/work/scribble-leap/scribble-leap'
+  /usr/bin/git version
+  git version 2.37.1
+Temporarily overriding HOME='/home/runner/work/_temp/c9a673ce-5116-4925-9fcd-d4c11fa8cefd' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+/usr/bin/git config --global --add safe.directory /home/runner/work/scribble-leap/scribble-leap
+Deleting the contents of '/home/runner/work/scribble-leap/scribble-leap'
+Initializing the repository
+  /usr/bin/git init /home/runner/work/scribble-leap/scribble-leap
+  hint: Using 'master' as the name for the initial branch. This default branch name
+  hint: is subject to change. To configure the initial branch name to use in all
+  hint: of your new repositories, which will suppress this warning, call:
+  hint: 
+  hint: 	git config --global init.defaultBranch <name>
+  hint: 
+  hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+  hint: 'development'. The just-created branch can be renamed via this command:
+  hint: 
+  hint: 	git branch -m <name>
+  Initialized empty Git repository in /home/runner/work/scribble-leap/scribble-leap/.git/
+  /usr/bin/git remote add origin https://github.com/Rishi-prog731/scribble-leap
+Disabling automatic garbage collection
+  /usr/bin/git config --local gc.auto 0
+Setting up auth
+  /usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+  /usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+  /usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+  /usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+  /usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Fetching the repository
+  /usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +c2f62158a4ccfbd33335cba12d3bc5a3fa3ec2dd:refs/remotes/origin/glitch
+  remote: Enumerating objects: 92, done.        
+  remote: Counting objects:   1% (1/92)        
+  remote: Counting objects:   2% (2/92)        
+  remote: Counting objects:   3% (3/92)        
+  remote: Counting objects:   4% (4/92)        
+  remote: Counting objects:   5% (5/92)        
+  remote: Counting objects:   6% (6/92)        
+  remote: Counting objects:   7% (7/92)        
+  remote: Counting objects:   8% (8/92)        
+  remote: Counting objects:   9% (9/92)        
+  remote: Counting objects:  10% (10/92)        
+  remote: Counting objects:  11% (11/92)        
+  remote: Counting objects:  13% (12/92)        
+  remote: Counting objects:  14% (13/92)        
+  remote: Counting objects:  15% (14/92)        
+  remote: Counting objects:  16% (15/92)        
+  remote: Counting objects:  17% (16/92)        
+  remote: Counting objects:  18% (17/92)        
+  remote: Counting objects:  19% (18/92)        
+  remote: Counting objects:  20% (19/92)        
+  remote: Counting objects:  21% (20/92)        
+  remote: Counting objects:  22% (21/92)        
+  remote: Counting objects:  23% (22/92)        
+  remote: Counting objects:  25% (23/92)        
+  remote: Counting objects:  26% (24/92)        
+  remote: Counting objects:  27% (25/92)        
+  remote: Counting objects:  28% (26/92)        
+  remote: Counting objects:  29% (27/92)        
+  remote: Counting objects:  30% (28/92)        
+  remote: Counting objects:  31% (29/92)        
+  remote: Counting objects:  32% (30/92)        
+  remote: Counting objects:  33% (31/92)        
+  remote: Counting objects:  34% (32/92)        
+  remote: Counting objects:  35% (33/92)        
+  remote: Counting objects:  36% (34/92)        
+  remote: Counting objects:  38% (35/92)        
+  remote: Counting objects:  39% (36/92)        
+  remote: Counting objects:  40% (37/92)        
+  remote: Counting objects:  41% (38/92)        
+  remote: Counting objects:  42% (39/92)        
+  remote: Counting objects:  43% (40/92)        
+  remote: Counting objects:  44% (41/92)        
+  remote: Counting objects:  45% (42/92)        
+  remote: Counting objects:  46% (43/92)        
+  remote: Counting objects:  47% (44/92)        
+  remote: Counting objects:  48% (45/92)        
+  remote: Counting objects:  50% (46/92)        
+  remote: Counting objects:  51% (47/92)        
+  remote: Counting objects:  52% (48/92)        
+  remote: Counting objects:  53% (49/92)        
+  remote: Counting objects:  54% (50/92)        
+  remote: Counting objects:  55% (51/92)        
+  remote: Counting objects:  56% (52/92)        
+  remote: Counting objects:  57% (53/92)        
+  remote: Counting objects:  58% (54/92)        
+  remote: Counting objects:  59% (55/92)        
+  remote: Counting objects:  60% (56/92)        
+  remote: Counting objects:  61% (57/92)        
+  remote: Counting objects:  63% (58/92)        
+  remote: Counting objects:  64% (59/92)        
+  remote: Counting objects:  65% (60/92)        
+  remote: Counting objects:  66% (61/92)        
+  remote: Counting objects:  67% (62/92)        
+  remote: Counting objects:  68% (63/92)        
+  remote: Counting objects:  69% (64/92)        
+  remote: Counting objects:  70% (65/92)        
+  remote: Counting objects:  71% (66/92)        
+  remote: Counting objects:  72% (67/92)        
+  remote: Counting objects:  73% (68/92)        
+  remote: Counting objects:  75% (69/92)        
+  remote: Counting objects:  76% (70/92)        
+  remote: Counting objects:  77% (71/92)        
+  remote: Counting objects:  78% (72/92)        
+  remote: Counting objects:  79% (73/92)        
+  remote: Counting objects:  80% (74/92)        
+  remote: Counting objects:  81% (75/92)        
+  remote: Counting objects:  82% (76/92)        
+  remote: Counting objects:  83% (77/92)        
+  remote: Counting objects:  84% (78/92)        
+  remote: Counting objects:  85% (79/92)        
+  remote: Counting objects:  86% (80/92)        
+  remote: Counting objects:  88% (81/92)        
+  remote: Counting objects:  89% (82/92)        
+  remote: Counting objects:  90% (83/92)        
+  remote: Counting objects:  91% (84/92)        
+  remote: Counting objects:  92% (85/92)        
+  remote: Counting objects:  93% (86/92)        
+  remote: Counting objects:  94% (87/92)        
+  remote: Counting objects:  95% (88/92)        
+  remote: Counting objects:  96% (89/92)        
+  remote: Counting objects:  97% (90/92)        
+  remote: Counting objects:  98% (91/92)        
+  remote: Counting objects: 100% (92/92)        
+  remote: Counting objects: 100% (92/92), done.        
+  remote: Compressing objects:   1% (1/77)        
+  remote: Compressing objects:   2% (2/77)        
+  remote: Compressing objects:   3% (3/77)        
+  remote: Compressing objects:   5% (4/77)        
+  remote: Compressing objects:   6% (5/77)        
+  remote: Compressing objects:   7% (6/77)        
+  remote: Compressing objects:   9% (7/77)        
+  remote: Compressing objects:  10% (8/77)        
+  remote: Compressing objects:  11% (9/77)        
+  remote: Compressing objects:  12% (10/77)        
+  remote: Compressing objects:  14% (11/77)        
+  remote: Compressing objects:  15% (12/77)        
+  remote: Compressing objects:  16% (13/77)        
+  remote: Compressing objects:  18% (14/77)        
+  remote: Compressing objects:  19% (15/77)        
+  remote: Compressing objects:  20% (16/77)        
+  remote: Compressing objects:  22% (17/77)        
+  remote: Compressing objects:  23% (18/77)        
+  remote: Compressing objects:  24% (19/77)        
+  remote: Compressing objects:  25% (20/77)        
+  remote: Compressing objects:  27% (21/77)        
+  remote: Compressing objects:  28% (22/77)        
+  remote: Compressing objects:  29% (23/77)        
+  remote: Compressing objects:  31% (24/77)        
+  remote: Compressing objects:  32% (25/77)        
+  remote: Compressing objects:  33% (26/77)        
+  remote: Compressing objects:  35% (27/77)        
+  remote: Compressing objects:  36% (28/77)        
+  remote: Compressing objects:  37% (29/77)        
+  remote: Compressing objects:  38% (30/77)        
+  remote: Compressing objects:  40% (31/77)        
+  remote: Compressing objects:  41% (32/77)        
+  remote: Compressing objects:  42% (33/77)        
+  remote: Compressing objects:  44% (34/77)        
+  remote: Compressing objects:  45% (35/77)        
+  remote: Compressing objects:  46% (36/77)        
+  remote: Compressing objects:  48% (37/77)        
+  remote: Compressing objects:  49% (38/77)        
+  remote: Compressing objects:  50% (39/77)        
+  remote: Compressing objects:  51% (40/77)        
+  remote: Compressing objects:  53% (41/77)        
+  remote: Compressing objects:  54% (42/77)        
+  remote: Compressing objects:  55% (43/77)        
+  remote: Compressing objects:  57% (44/77)        
+  remote: Compressing objects:  58% (45/77)        
+  remote: Compressing objects:  59% (46/77)        
+  remote: Compressing objects:  61% (47/77)        
+  remote: Compressing objects:  62% (48/77)        
+  remote: Compressing objects:  63% (49/77)        
+  remote: Compressing objects:  64% (50/77)        
+  remote: Compressing objects:  66% (51/77)        
+  remote: Compressing objects:  67% (52/77)        
+  remote: Compressing objects:  68% (53/77)        
+  remote: Compressing objects:  70% (54/77)        
+  remote: Compressing objects:  71% (55/77)        
+  remote: Compressing objects:  72% (56/77)        
+  remote: Compressing objects:  74% (57/77)        
+  remote: Compressing objects:  75% (58/77)        
+  remote: Compressing objects:  76% (59/77)        
+  remote: Compressing objects:  77% (60/77)        
+  remote: Compressing objects:  79% (61/77)        
+  remote: Compressing objects:  80% (62/77)        
+  remote: Compressing objects:  81% (63/77)        
+  remote: Compressing objects:  83% (64/77)        
+  remote: Compressing objects:  84% (65/77)        
+  remote: Compressing objects:  85% (66/77)        
+  remote: Compressing objects:  87% (67/77)        
+  remote: Compressing objects:  88% (68/77)        
+  remote: Compressing objects:  89% (69/77)        
+  remote: Compressing objects:  90% (70/77)        
+  remote: Compressing objects:  92% (71/77)        
+  remote: Compressing objects:  93% (72/77)        
+  remote: Compressing objects:  94% (73/77)        
+  remote: Compressing objects:  96% (74/77)        
+  remote: Compressing objects:  97% (75/77)        
+  remote: Compressing objects:  98% (76/77)        
+  remote: Compressing objects: 100% (77/77)        
+  remote: Compressing objects: 100% (77/77), done.        
+  remote: Total 92 (delta 34), reused 52 (delta 11), pack-reused 0        
+  From https://github.com/Rishi-prog731/scribble-leap
+   * [new ref]         c2f62158a4ccfbd33335cba12d3bc5a3fa3ec2dd -> origin/glitch
+Determining the checkout info
+Checking out the ref
+  /usr/bin/git checkout --progress --force -B glitch refs/remotes/origin/glitch
+  Switched to a new branch 'glitch'
+  branch 'glitch' set up to track 'origin/glitch'.
+/usr/bin/git log -1 --format='%H'
+'c2f62158a4ccfbd33335cba12d3bc5a3fa3ec2dd'
