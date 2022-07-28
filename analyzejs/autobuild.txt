@@ -1,0 +1,18 @@
+Run github/codeql-action/autobuild@v2
+  with:
+    token: ***
+    matrix: {
+    "language": "javascript"
+  }
+  env:
+    CODEQL_ACTION_RUN_MODE: Action
+    CODEQL_ACTION_VERSION: 2.1.16
+    CODEQL_ACTION_FEATURE_SARIF_COMBINE: true
+    CODEQL_ACTION_FEATURE_WILL_UPLOAD: true
+    CODEQL_ACTION_ANALYSIS_KEY: .github/workflows/codeql-analysis.yml:analyze
+    CODEQL_WORKFLOW_STARTED_AT: 2022-07-28T15:18:25.062Z
+    CODEQL_ACTION_FEATURE_MULTI_LANGUAGE: false
+    CODEQL_ACTION_FEATURE_SANDWICH: false
+    CODEQL_RAM: 5919
+    CODEQL_THREADS: 2
+None of the languages in this project require extra build steps
