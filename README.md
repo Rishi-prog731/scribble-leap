@@ -87,7 +87,7 @@ https://glitch.com/edit/#!/scribbleleap
 
 ## CodeQL Analyzation
 
-**Setup Version**
+**analyze.js**
 
 Current runner version: '2.294.0'
 
