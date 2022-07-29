@@ -1,0 +1,88 @@
+{
+  "frames": {
+    "Screenshot from 2022-07-28 15-31-140.png": {
+      "frame": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    },
+    "Screenshot from 2022-07-28 15-31-141.png": {
+      "frame": { "x": 1000, "y": 0, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    },
+    "Screenshot from 2022-07-28 15-31-142.png": {
+      "frame": { "x": 2000, "y": 0, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    },
+    "Screenshot from 2022-07-28 15-31-143.png": {
+      "frame": { "x": 0, "y": 661, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    },
+    "Screenshot from 2022-07-28 15-31-144.png": {
+      "frame": { "x": 1000, "y": 661, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    },
+    "Screenshot from 2022-07-28 15-31-145.png": {
+      "frame": { "x": 2000, "y": 661, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    },
+    "Screenshot from 2022-07-28 15-31-146.png": {
+      "frame": { "x": 0, "y": 1322, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    },
+    "Screenshot from 2022-07-28 15-31-147.png": {
+      "frame": { "x": 1000, "y": 1322, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    },
+    "Screenshot from 2022-07-28 15-31-148.png": {
+      "frame": { "x": 2000, "y": 1322, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    },
+    "Screenshot from 2022-07-28 15-31-149.png": {
+      "frame": { "x": 0, "y": 1983, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    },
+    "Screenshot from 2022-07-28 15-31-1410.png": {
+      "frame": { "x": 1000, "y": 1983, "w": 1000, "h": 661 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1000, "h": 661 },
+      "sourceSize": { "w": 1000, "h": 661 }
+    }
+  },
+  "meta": {
+    "app": "https://github.com/piskelapp/piskel/",
+    "version": "1.0",
+    "image": "Screenshot from 2022-07-28 15-31-14.png",
+    "format": "RGBA8888",
+    "size": { "w": 3000, "h": 2644 }
+  }
+}
