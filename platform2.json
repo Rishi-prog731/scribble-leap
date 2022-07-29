@@ -6,6 +6,111 @@
       "trimmed": false,
       "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
       "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform21.png": {
+      "frame": { "x": 269, "y": 0, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform22.png": {
+      "frame": { "x": 0, "y": 73, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform23.png": {
+      "frame": { "x": 269, "y": 73, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform24.png": {
+      "frame": { "x": 0, "y": 146, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform25.png": {
+      "frame": { "x": 269, "y": 146, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform26.png": {
+      "frame": { "x": 0, "y": 219, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform27.png": {
+      "frame": { "x": 269, "y": 219, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform28.png": {
+      "frame": { "x": 0, "y": 292, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform29.png": {
+      "frame": { "x": 269, "y": 292, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform210.png": {
+      "frame": { "x": 0, "y": 365, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform211.png": {
+      "frame": { "x": 269, "y": 365, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform212.png": {
+      "frame": { "x": 0, "y": 438, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform213.png": {
+      "frame": { "x": 269, "y": 438, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform214.png": {
+      "frame": { "x": 0, "y": 511, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
+    },
+    "Platform215.png": {
+      "frame": { "x": 269, "y": 511, "w": 269, "h": 73 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 269, "h": 73 },
+      "sourceSize": { "w": 269, "h": 73 }
     }
   },
   "meta": {
@@ -13,6 +118,6 @@
     "version": "1.0",
     "image": "Platform2.png",
     "format": "RGBA8888",
-    "size": { "w": 269, "h": 73 }
+    "size": { "w": 538, "h": 584 }
   }
 }
