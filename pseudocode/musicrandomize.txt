@@ -1,0 +1,4 @@
+phaser stuff
+const music = ["musicfile1", "musicfile2", "musicfile3"];
+var musicPicking = music[Math.floor(Math.random()*music.length)];
+playingMusic = game.add.audio(musicPicking);
