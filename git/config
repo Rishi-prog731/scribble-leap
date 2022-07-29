@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/Rishi-prog731/scribble-leap.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "glitch"]
+	remote = origin
+	merge = refs/heads/glitch
