@@ -55,20 +55,34 @@
 
         this.load.image(
           "sky",
-          " https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0ca0366a-2924-452d-8c9d-0f8617807e22/dcatq78-8b3818c2-9e03-4179-9601-e87ac825a0ef.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzBjYTAzNjZhLTI5MjQtNDUyZC04YzlkLTBmODYxNzgwN2UyMlwvZGNhdHE3OC04YjM4MThjMi05ZTAzLTQxNzktOTYwMS1lODdhYzgyNWEwZWYuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.kk1b_iX4C7FU7Usd6TfmN7UlSVFXjRWK4zMxk7wcL_0"
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2FSpace%20Background(2).png?1658936337182"
         );
         this.load.image(
           "platform",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fplatform.png?1658777114483"
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/Platform1.png?1658934898080"
         );
         this.load.atlas(
-          "slime",
-          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/slimesheet.png?1658777114399",
-          "slimesheet.json"
+          "player",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIdle00.png?1658933312544",
+          "mcSpriteIdle00.json"
         );
+        this.load.audio(
+          'mainbg',
+          ['https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/bgmusic.mp3?v=1658935436816']
+        );
+        this.load.audio(
+          'jumpse',
+          ['https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/jump.wav?v=1658868400591']
+        );
+        
       }
 
       function create() {
+        
+        //makes all sound vars and plays main bg music
+        var bgmusic = this.sound.add('mainbg');
+        bgmusic.play()
+        
         var theScene = this;
         //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
         let background = this.add
@@ -79,36 +93,36 @@
 
         let playerAnimations = {};
         var idle = this.anims.create({
-          key: "slime_idle",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_idle",
-            end: 5,
+          key: "player_idle",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "mcSpriteIdle",
+            end: 1,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 10,
+          frameRate: 2,
         });
         playerAnimations["idle"] = idle;
         var left = this.anims.create({
-          key: "slime_left",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_left",
-            end: 5,
+          key: "player_left",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "mcSpriteLeft",
+            end: 1,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 10,
+          frameRate: 2,
         });
         playerAnimations["left"] = left;
         var right = this.anims.create({
-          key: "slime_right",
-          frames: this.anims.generateFrameNames("slime", {
-            prefix: "slime_right",
-            end: 5,
+          key: "player_right",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "mcSpriteIdle",
+            end: 1,
             zeroPad: 2,
           }),
           repeat: -1,
-          frameRate: 10,
+          frameRate: 2,
         });
         playerAnimations["right"] = right;
         var maxSpeed;
@@ -116,7 +130,7 @@
         //Create the platforms and the player character set to collide with the platforms
         startingPlatforms(this);
 
-        player = new Player(this, 400, 400, "slime", playerAnimations);
+        player = new Player(this, 400, 400, "player", playerAnimations);
         this.physics.add.collider(player, platforms);
         player.play(player.animations["idle"]);
 
@@ -142,7 +156,7 @@
         );
         basePlatform.setScale(8, 1).refreshBody();
         while (lastPlatformY > 200) {
-          lastPlatformY -= 100;
+          lastPlatformY -= 200;
           let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
           platform.body.checkCollision.down = false;
           platform.body.checkCollision.right = false;
@@ -154,7 +168,7 @@
       
       function generatePlatform(scene) {
         platforms = scene.physics.add.staticGroup();
-        lastPlatformY -= 100;
+        lastPlatformY -= 200;
         let platform = platforms.create(Math.random()*Swidth, lastPlatformY, "platform");
         platform.body.checkCollision.down = false;
         platform.body.checkCollision.right = false;
@@ -165,20 +179,21 @@
       function gameOver() {
         dead = true;
         console.log("Game Over :(");
+        var death_screen = game.add.sprite(80, 0, 'death-screen');
       }
 
       function update() {
-        /*if (lastPlatformY > 0) {
-          generatePlatform(this);
-        }*/
         if (player.body.position.y < highestPlayerY) {
           highestPlayerY = player.body.position.y;
-          console.log("trackin");
         }
-        if (player.body.position.y > highestPlayerY + 1000 && dead != true){
+        if (player.body.position.y < highestPlayerY + Sheight/2){
+          this.cameras.main.centerOnY(player.body.position.y);
+        }
+        if (player.body.position.y > highestPlayerY + Sheight/2 + 500 && dead != true) {
           gameOver();
+          player.disableBody();
+          
         }
-        
         //make platforms
         if (player.body.position.y < lastPlatformY + Sheight + 200) {
           while (player.body.position.y < lastPlatformY + Sheight + 200) {
@@ -188,13 +203,8 @@
         }
         
         this.physics.add.collider(player, platforms);
-        if (dead != true){
-          this.cameras.main.centerOnY(player.body.position.y);
-        }
         
-        if (player.body.position.y > highestPlayerY + 1000 + Sheight/2) {
-          pause();
-        }
+        
         
         // console.log(paused);
         //console.log(player.x);
@@ -234,6 +244,7 @@
         //graphics.strokeRectShape(bounds);
         if (player.body.touching.down) {
           jump();
+          
         }
       }
       function pause() {
@@ -255,7 +266,7 @@
       }
       function jump(event) {
         if (player.body.touching.down) {
-          player.setVelocityY(-1000);
+          player.setVelocityY(-1150);
         }
       }
       
