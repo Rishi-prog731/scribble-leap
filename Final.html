@@ -1,1 +1,540 @@
 
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <center>
+      <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+    </center>
+  </head>
+  <body style="background-color: black">
+    <script>
+      //var Swidth = screen.width;
+      // var Sheight = screen.height;
+      var Sheight = window.screen.availHeight * 0.85;
+      var Swidth = window.screen.availWidth * 1;
+      var config = {
+        type: Phaser.AUTO,
+        width: Swidth,
+        height: Sheight,
+        pixelArt: true,
+        // game.scale.pageAlignHorizontally = true;
+        // game.scale.pageAlignVertically = true;
+        //game.scale.refresh();
+        physics: {
+          default: "arcade",pixelArt: true,
+        },
+
+        scene: {
+          preload: preload,
+          create: create,
+          update: update,
+        },
+      };
+      var game = new Phaser.Game(config);
+      var paused = 0;
+      //Game Objects
+      var platforms;
+      var map;
+      var player;
+      //Keyboard controls
+      var cursors;
+      var keys;
+      var space;
+      var graphics;
+      var acceleration = 2000;
+      var maxSpeed = 750;
+      var lastPlatformY = 800;
+      var highestPlayerY = Sheight;
+      var dead = false;
+      var allPlatforms = new Array();
+      var jumpsound;
+      var fallsound;
+      var deadmusic;
+      var mainMusic;
+      var mainMenuMusic;
+      var bg;
+      var bg2;
+      var bgmusicSecond;
+      var gameoverbg;
+      var gameovermusic;
+      var offset = 0;
+      var offset2 = 0;
+      var facingRight;
+      var capturedVelocityX;
+      var capturedAcceleration;
+      var capturedVelocityY;
+      var gameStarted = false;
+      var musicArray = [];
+      
+      function preload() {
+        //this.load.image('sky', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fbackground.png?1658781131738');
+
+        this.load.image(
+          "sky",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2FSpace%20Background(2).png?1658936337182"
+        );
+        this.load.image(
+          "re",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/white.png?v=1659106965291"
+        );
+        
+        this.load.image(
+          "spring",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fspring.jpg?1658953969923"
+        );
+        this.load.image(
+          "platform",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/Platform1.png?1658934898080"
+        );
+        this.load.image(
+          "deathscreen",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen.png?v=1659033219745"
+        );
+        this.load.atlas(
+          "player",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIJump00.png?1658951644445",
+          "spriteJump00.json"
+        );
+        this.load.audio("mainbg", [
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/bgmusic.mp3?v=1658935436816",
+        ]);
+        this.load.audio("jumpfx", [
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/jump.mp3?v=1658948463746",
+        ]);
+        this.load.audio("deathbg1", [
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/deadmusic.mp3?v=1658868400882",
+        ]);
+        this.load.audio("mainmenu", [
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/MAINMENUTHEME.mp3?v=1659057632112",
+        ]);
+        this.load.audio("bg2", [
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/additional%20bg%20MIXED.mp3?v=1659109602704", //REPLACE WITH SOUND FILE!!!!!!!!
+        ]);
+        
+        this.load.image('cat1', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-1.png.png?v=1659057200047');
+        this.load.image('cat2', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-2.png.png?v=1659057199988');
+        this.load.image('cat3', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-3.png.png?v=1659057199935');
+        this.load.image('cat4', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-4.png.png?v=1659057199831');
+        this.load.image('cat5', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-5.png.png?v=1659057199683');
+        this.load.image('cat6', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-6.png.png?v=1659057199648');
+        this.load.image('cat7', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-7.png.png?v=1659057199620');
+        this.load.image('cat8', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-8.png.png?v=1659057199531');
+        this.load.image('cat9', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-9.png.png?v=1659057199584');
+        this.load.image('cat10', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-10.png.png?v=1659057199384');
+        this.load.image('cat11', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-11.png.png?v=1659057199280');
+        this.load.image('cat12', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-12.png.png?v=1659057199319');
+        this.load.image('cat13', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-13.png.png?v=1659057199350');
+        this.load.image('cat14', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-14.png.png?v=1659057199227');
+        this.load.image('cat15', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-15.png.png?v=1659057199081');
+        this.load.image('cat16', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-16.png.png?v=1659057199043');
+        this.load.image('cat17', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-17.png.png?v=1659057198877');
+        this.load.image('cat18', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-18.png.png?v=1659057198876');
+        this.load.image('cat19', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-19.png.png?v=1659057198876');
+        this.load.image('cat20', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen-20.png.png?v=1659057198876');
+      }
+
+      function create() {
+        var menuMusic = this.sound.add("mainmenu");
+        mainMenuMusic = menuMusic;
+        mainMenuMusic.setVolume(0.15);
+        mainMenuMusic.play();
+        //musicArray.push(mainMenuMusic);
+        
+        var bgmusic = this.sound.add("mainbg");
+        mainMusic = bgmusic;
+        mainMusic.setVolume(0.15);
+        musicArray.push(mainMusic);
+        //mainMusic.play();
+
+        var bgmusic2 = this.sound.add("bg2");
+        bgmusicSecond = bgmusic2;
+        bgmusicSecond.setVolume(0.15);
+        musicArray.push(bgmusicSecond);
+        //mainMusic.play();
+
+        var jumpfx = this.sound.add("jumpfx");
+        jumpsound = jumpfx;
+        jumpsound.setVolume(1);
+
+        var deathbg = this.sound.add("deathbg1");
+        gameovermusic = deathbg;
+        gameovermusic.setVolume(0.3);
+        
+        
+        this.anims.create({
+            key: 'snooze',
+            frames: [
+                { key: 'cat1' },
+                { key: 'cat2' },
+                { key: 'cat3' },
+                { key: 'cat4' },
+                { key: 'cat5' },
+                { key: 'cat6' },
+                { key: 'cat7' },
+                { key: 'cat8' },
+                { key: 'cat9' },
+                { key: 'cat10' },
+                { key: 'cat11' },
+                { key: 'cat12' }, 
+                { key: 'cat13' },
+                { key: 'cat14' },
+                { key: 'cat15' },
+                { key: 'cat16' },
+                { key: 'cat17' },
+                { key: 'cat18' },
+                { key: 'cat19' },
+                { key: 'cat20', duration: 50 }
+            ],
+            frameRate: 3,
+            repeat: -1
+        });
+        
+        
+       // this.text = this.add.text(0, 0, 'score: ', '', 16)
+        
+        var theScene = this;
+        //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
+        var background = this.add
+          .tileSprite(
+            0,
+            -1000,
+            game.scale.width * 2,
+            game.scale.height * 2,
+            "sky"
+          )
+          .setOrigin(0, 0);
+        background.tileScaleX = 4;
+        background.tileScaleY = 4;
+        bg = background;
+        // var background2 = this.add
+        //   .tileSprite(
+        //     0,
+        //     -1000 - background.displayHeight,
+        //     game.scale.width * 2,
+        //     game.scale.height * 2,
+        //     "sky"
+        //   )
+        //   .setOrigin(0, 0);
+        // background2.tileScaleX = 4;
+        // background2.tileScaleY = 4;
+        // bg2 = background2;
+        var gameover1 = this.add.sprite(0, 0, "deathscreen");
+        gameover1.visible = false;
+        gameoverbg = gameover1;
+        gameoverbg.setDisplaySize(Swidth, Sheight);
+        
+        //create all animations
+        let playerAnimations = {};
+        var idle = this.anims.create({
+          key: "player_idle",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "spriteJump",
+            end: 1,
+            zeroPad: 2,
+          }),
+          repeat: -1,
+          frameRate: 2,
+        });
+        playerAnimations["idle"] = idle;
+        var left = this.anims.create({
+          key: "player_left",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "spriteJumpLeft",
+            end: 1, 
+            zeroPad: 2,
+          }),
+          repeat: -1,
+          frameRate: 2,
+        });
+        playerAnimations["left"] = left;
+        var right = this.anims.create({
+          key: "player_right",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "spriteJump",
+            end: 1,
+            zeroPad: 2,
+          }),
+          repeat: -1,
+          frameRate: 2,
+        });
+        playerAnimations["right"] = right;
+        var maxSpeed;
+
+        //Create the platforms and the player character set to collide with the platforms
+        platforms = theScene.physics.add.staticGroup();
+
+        player = new Player(this, Swidth/2, Sheight/2, "player", playerAnimations);
+        this.physics.add.collider(player, platforms);
+        
+        player.play(player.animations["idle"]);
+        let basePlatform = platforms.create(player.body.position.x +20, player.body.position.y + player.body.height*2 - 5,"platform");
+        basePlatform.setScale(.3, .3).refreshBody();
+        
+ //creates one platform that always spawns 
+        //basePlatform.refreshBody();
+        //Set up user input
+        cursors = this.input.keyboard.createCursorKeys();
+        keys = this.input.keyboard.addKeys("A, D");
+        space = this.input.keyboard.addKey(
+          Phaser.Input.Keyboard.KeyCodes.SPACE
+        );
+        enter = this.input.keyboard.addKey(
+          Phaser.Input.Keyboard.KeyCodes.ENTER
+        );
+        space.on("down", pause);//V1copy.html
+        enter.on("down", startGame);
+        
+        //startingPlatforms(this);
+        graphics = this.add.graphics();
+        startMenu = this.add.text(player.body.position.x, player.body.position.y - 50, 'PRESS ENTER TO START', '', 100)
+        this.text = this.add.text(0, 0, 'score: ', '', 16)
+        player.disableBody(); //IMPORTANT // KEEPS PLAYER DISABLED UNTIL GAME STARTED
+        var particles = this.add.particles('platform');
+
+        var emitter = particles.createEmitter({
+
+            speed: 100,
+
+            scale: { start: 1, end: 0 },
+
+            blendMode: 'ADD'
+        })
+        emitter.startFollow(player);
+
+      }
+
+//      function startingPlatforms(scene) {
+      /*  platforms = scene.physics.add.staticGroup();
+        //basePlatform is the floor of the game
+        let basePlatform = platforms.create(
+          game.scale.width / 2,
+          game.scale.height - 30,
+          "platform"
+        );
+        basePlatform.setScale(8, 1).refreshBody();*/
+        /*platforms = scene.physics.add.staticGroup();
+        //basePlatform is the floor of the game
+        let basePlatform = platforms.create(player.body.position.x, player.body.position.y + Sheight/2.5, "platform");
+        basePlatform.setScale(.3, .3).refreshBody();
+        //while (lastPlatformY > 200) {*/
+        //  lastPlatformY -= 200;
+        //  let platform = platforms.create(
+        //    Math.random() * 1000,
+        //    lastPlatformY,
+        //    "platform"
+        //  );
+            //basePlatform.body.checkCollision.down = false;
+            //basePlatform.body.checkCollision.right = false;
+            //basePlatform.body.checkCollision.left = false;
+            //basePlatform.body.checkCollision.up = true;
+        //  platform.setScale(0.3, 0.3).refreshBody();
+           // basePlatform.refreshBody();
+          //  allPlatforms.push(basePlatform);
+        //}
+     // }
+
+      function generatePlatform(scene) {
+
+        lastPlatformY -= 200;
+        let platform = platforms.create(
+          Math.random() * Swidth,
+          lastPlatformY,
+          "platform"
+        );
+        platform.body.checkCollision.down = false;
+        platform.body.checkCollision.right = false;
+        platform.body.checkCollision.left = false;
+        platform.body.checkCollision.up = true;
+        platform.setScale(0.3, 0.3).refreshBody();
+        allPlatforms.push(platform);
+      }
+
+      function gameOver(scene) {
+        dead = true;
+        let death_screen = scene.add.sprite(925, player.body.position.y - 500, 'cat1')
+            .play('snooze');
+        death_screen.setDisplaySize(Swidth, Sheight);
+        death_screen.play("snooze");
+        //dead = true;
+        console.log("Game Over!!!! :(");
+        //gameoverbg.setPosition(Swidth / 2, highestPlayerY + Sheight / 2);
+        //gameoverbg.visible = true;
+        console.log("playing dead music");
+        mainMenuMusic.stop();
+        gameovermusic.play();
+        for(i = 0; i < musicArray.length; i++){
+          musicArray[i].stop()
+        }
+      }
+    
+      function update() {
+        
+        //console.log(musicArray);
+        /*if (bg.displayOriginY > player.body.position.y + Sheight / 2) {
+          
+          offset += game.scale.height * 2;
+          console.log(offset);
+        }
+        if (bg2.displayOriginY > player.body.position.y + Sheight / 2) {
+          offset2 += game.scale.height * 2;
+        }*/
+        if(-highestPlayerY < 0){
+          highestPlayerY = 0;
+        }
+        this.text.setText("score: " + Math.round((Math.round((-highestPlayerY) + 366)/10)));
+        //console.log(bg.originY);
+        if (allPlatforms.length > 10) {
+          while (allPlatforms.length > 10) {
+            allPlatforms[0].destroy();
+            allPlatforms.shift();
+          }
+        }
+        if (player.body.position.y < highestPlayerY) {
+          highestPlayerY = player.body.position.y;
+        }
+        if (player.body.position.y < highestPlayerY + Sheight / 2) {
+          this.text.setPosition(0, player.body.position.y - Sheight/2)
+          bg.displayOriginY = -player.body.position.y - 400;
+          bg.tilePositionY = player.body.position.y * 0.1;
+          this.cameras.main.centerOnY(player.body.position.y);
+        }
+        if (
+          player.body.position.y > highestPlayerY + Sheight / 2 + 500 &&
+          dead != true
+        ) {
+          for (let i = 0; i < allPlatforms.length; i++) {
+            allPlatforms[i].destroy();
+          }
+          gameOver(this);
+          player.disableBody();
+        }
+        //make platforms
+        if (player.body.position.y < lastPlatformY + Sheight + 200) {
+          while (player.body.position.y < lastPlatformY + Sheight + 200) {
+            generatePlatform(this);
+            this.cameras.main.y;
+            this.physics.add.collider(player, platforms);
+          }
+        }
+
+        //this.physics.add.collider(player, platforms);
+
+        // console.log(paused);
+        //console.log(player.x);
+        //Player will not move in the x-axis unless a movement key is being pressed
+        //player.setVelocityX(0);
+
+        //Player has "drag" on the x-axis meaning they slide a bit after an input
+        player.setDragX(1000);
+
+        //Handle player movements
+        if (cursors.left.isDown || keys.A.isDown) {
+          facingRight = false;
+ 
+          if (player.body.velocity.x > -maxSpeed) {
+            player.setAccelerationX(-acceleration);
+            if (player.angle >= -30) {
+              player.angle -= 1;
+            }
+          } else {
+            player.setVelocityX(-maxSpeed);
+          }
+          
+        } else if (cursors.right.isDown || keys.D.isDown) {
+          facingRight = true;
+          player.setAccelerationX(acceleration);
+          if (player.body.velocity.x > maxSpeed) {
+            player.body.velocity.x = maxSpeed;
+          }
+          if (player.angle <= 30) {
+            player.angle++;
+          }
+
+        } else {
+          if (player.angle < 0) {
+            player.angle += 4;
+          }
+          if (player.angle > 0) {
+            player.angle -= 4;
+          }
+          player.setAccelerationX(0);
+          //player.play(player.animations["idle"], true);
+        }
+        if (player.x < 0) {
+          player.setPosition(Swidth, player.y);
+        }
+        if (player.x > Swidth) {
+          player.setPosition(0, player.y);
+        }
+        //let bounds = player.getBounds();
+        //graphics.clear();
+        //graphics.lineStyle(1, 0xff0000);
+        //graphics.strokeRectShape(bounds);
+        if (player.body.touching.down) {
+          jump();
+        }
+        //keeps player facing the correct direction
+        if (facingRight){
+          player.play(player.animations["right"], true);
+        }
+        else{
+          player.play(player.animations["left"], true);
+          }
+
+        
+      }
+      function startGame(){
+      console.log("GAME STARTED");
+      mainMenuMusic.stop();
+      musicArray[Math.round(Math.random())].play();
+      console.log(Math.round(Math.random()));
+      gameStarted = true;
+      player.enableBody();
+      }
+      function pause() {
+        paused = paused + 1;
+        if (paused == 1) {
+          capturedVelocityX = player.body.velocity.x;
+          capturedVelocityY = player.body.velocity.y;
+          capturedAcceleration = player.body.acceleration.x;
+  
+          player.disableBody();
+        }
+        if (paused == 2) {
+          paused = 0;
+          player.enableBody();
+          player.body.acceleration.x = capturedVelocityX;
+          player.body.velocity.x = capturedAcceleration;
+          player.body.velocity.y = capturedVelocityY;
+        }
+
+        //let pauseX = player.x;
+        //let pauseY = player.y;
+        //player.setAccelerationX(0);
+        //player.setPosition(pauseX,pauseY);
+        //player.setVelocityY(0);
+        //console.log(pauseX)
+      }
+      function jump(event) {
+        if (player.body.touching.down) {
+          jumpsound.play();
+          player.setVelocityY(-1150);
+        }
+      }
+
+      class Player extends Phaser.Physics.Arcade.Sprite {
+        animations;
+        constructor(scene, x, y, spritesheet, animations) {
+          super(scene, x, y, spritesheet);
+          this.animations = animations;
+          scene.add.existing(this);
+          scene.physics.add.existing(this);
+          this.setScale(2);
+          this.setCollideWorldBounds(false);
+          this.setGravityY(1000);
+        }
+      }
+    </script>
+  </body>
+</html>
