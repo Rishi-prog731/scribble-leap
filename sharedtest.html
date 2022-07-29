@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <center>
+      <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+    </center>
+  </head>
+  <body style="background-color: black">
+    <script>
+      //var Swidth = screen.width;
+      // var Sheight = screen.height;
+      var Sheight = window.screen.availHeight * 0.85;
+      var Swidth = window.screen.availWidth * 1;
+      var config = {
+        type: Phaser.AUTO,
+        width: Swidth,
+        height: Sheight,
+        // game.scale.pageAlignHorizontally = true;
+        // game.scale.pageAlignVertically = true;
+        //game.scale.refresh();
+        physics: {
+          default: "arcade",
+        },
+
+        scene: {
+          preload: preload,
+          create: create,
+          update: update,
+        },
+      };
+      var game = new Phaser.Game(config);
+      var paused = 0;
+      //Game Objects
+      var platforms;
+      var map;
+      var player;
+      //Keyboard controls
+      var cursors;
+      var keys;
+      var space;
+      var graphics;
+      var acceleration = 2000;
+      var maxSpeed = 750;
+      var lastPlatformY = 800;
+      var highestPlayerY = Sheight;
+      var dead = false;
+      var allPlatforms = new Array();
+      var jumpsound;
+      var fallsound;
+      var deadmusic;
+      var mainMusic;
+      var bg;
+      var bg2;
+      var gameoverbg;
+      var gameovermusic;
+      var offset = 0;
+      var offset2 = 0;
+      function preload() {
+        //this.load.image('sky', 'https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fbackground.png?1658781131738');
+
+        this.load.image(
+          "sky",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2FSpace%20Background(2).png?1658936337182"
+        );
+        this.load.image(
+          "spring",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/thumbnails%2Fspring.jpg?1658953969923"
+        );
+        this.load.image(
+          "platform",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/Platform1.png?1658934898080"
+        );
+        this.load.image(
+          "deathscreen",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/GameOverScreen.png?v=1659033219745"
+        );
+        this.load.atlas(
+          "player",
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/mcSpriteIJump00.png?1658951644445",
+          "spriteJump00.json"
+        );
+        this.load.audio("mainbg", [
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/bgmusic.mp3?v=1658935436816",
+        ]);
+        this.load.audio("jumpfx", [
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/jump.mp3?v=1658948463746",
+        ]);
+        this.load.audio("deathbg1", [
+          "https://cdn.glitch.global/b2968947-5cd8-4be4-84fd-aed54077cdce/deadmusic.mp3?v=1658868400882",
+        ]);
+      }
+
+      function create() {
+        var bgmusic = this.sound.add("mainbg");
+        mainMusic = bgmusic;
+        mainMusic.setVolume(0.15);
+        mainMusic.play();
+
+        var jumpfx = this.sound.add("jumpfx");
+        jumpsound = jumpfx;
+        jumpsound.setVolume(1);
+
+        var deathbg = this.sound.add("deathbg1");
+        gameovermusic = deathbg;
+        gameovermusic.setVolume(0.3);
+
+        var theScene = this;
+        //Set the background origin to be at (0, 0) or top left corner of the image rather than the center of the image asset
+        var background = this.add
+          .tileSprite(
+            0,
+            -1000,
+            game.scale.width * 2,
+            game.scale.height * 2,
+            "sky"
+          )
+          .setOrigin(0, 0);
+        bg = background;
+        var background2 = this.add
+          .tileSprite(
+            0,
+            -1000 - background.displayHeight,
+            game.scale.width * 2,
+            game.scale.height * 2,
+            "sky"
+          )
+          .setOrigin(0, 0);
+        bg2 = background2;
+        var gameover1 = this.add.sprite(0, 0, "deathscreen");
+        gameover1.visible = false;
+        gameoverbg = gameover1;
+        gameoverbg.setDisplaySize(Swidth, Sheight);
+        
+        //create all animations
+        let playerAnimations = {};
+        var idle = this.anims.create({
+          key: "player_idle",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "spriteJump",
+            end: 1,
+            zeroPad: 2,
+          }),
+          repeat: -1,
+          frameRate: 2,
+        });
+        playerAnimations["idle"] = idle;
+        var left = this.anims.create({
+          key: "player_left",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "spriteJumpLeft",
+            end: 1,
+            zeroPad: 2,
+          }),
+          repeat: -1,
+          frameRate: 2,
+        });
+        playerAnimations["left"] = left;
+        var right = this.anims.create({
+          key: "player_right",
+          frames: this.anims.generateFrameNames("player", {
+            prefix: "spriteJump",
+            end: 1,
+            zeroPad: 2,
+          }),
+          repeat: -1,
+          frameRate: 2,
+        });
+        playerAnimations["right"] = right;
+        var maxSpeed;
+
+        //Create the platforms and the player character set to collide with the platforms
+        startingPlatforms(this);
+
+        player = new Player(this, 400, 400, "player", playerAnimations);
+        this.physics.add.collider(player, platforms);
+        player.play(player.animations["idle"]);
+
+        //Set up user input
+        cursors = this.input.keyboard.createCursorKeys();
+        keys = this.input.keyboard.addKeys("A, D");
+        space = this.input.keyboard.addKey(
+          Phaser.Input.Keyboard.KeyCodes.SPACE
+        );
+        space.on("down", pause);
+
+        graphics = this.add.graphics();
+      }
+
+      function startingPlatforms(scene) {
+        platforms = scene.physics.add.staticGroup();
+        //basePlatform is the floor of the game
+        let basePlatform = platforms.create(
+          game.scale.width / 2,
+          game.scale.height - 30,
+          "platform"
+        );
+        basePlatform.setScale(8, 1).refreshBody();
+        while (lastPlatformY > 200) {
+          lastPlatformY -= 200;
+          let platform = platforms.create(
+            Math.random() * 1000,
+            lastPlatformY,
+            "platform"
+          );
+          platform.body.checkCollision.down = false;
+          platform.body.checkCollision.right = false;
+          platform.body.checkCollision.left = false;
+          platform.body.checkCollision.up = true;
+          platform.setScale(0.3, 0.3).refreshBody();
+          allPlatforms.push(platform);
+        }
+      }
+
+      function generatePlatform(scene) {
+        platforms = scene.physics.add.staticGroup();
+        lastPlatformY -= 200;
+        let platform = platforms.create(
+          Math.random() * Swidth,
+          lastPlatformY,
+          "platform"
+        );
+        platform.body.checkCollision.down = false;
+        platform.body.checkCollision.right = false;
+        platform.body.checkCollision.left = false;
+        platform.body.checkCollision.up = true;
+        platform.setScale(0.3, 0.3).refreshBody();
+        allPlatforms.push(platform);
+      }
+
+      function gameOver() {
+        dead = true;
+        console.log("Game Over!!!! :(");
+        gameoverbg.setPosition(Swidth / 2, highestPlayerY + Sheight / 2);
+        gameoverbg.visible = true;
+        console.log("playing dead music");
+        mainMusic.stop();
+        gameovermusic.play();
+      }
+
+      function update() {
+        console.log(allPlatforms);
+        if (bg.displayOriginY > player.body.position.y + Sheight / 2) {
+          offset += game.scale.height * 2;
+          console.log(bg.displayOriginY);
+        }
+        if (bg2.displayOriginY > player.body.position.y + Sheight / 2) {
+          offset2 += game.scale.height * 2;
+        }
+
+        if (allPlatforms.length > 10) {
+          while (allPlatforms.length > 10) {
+            allPlatforms[0].destroy();
+            allPlatforms.shift();
+          }
+        }
+        if (player.body.position.y < highestPlayerY) {
+          highestPlayerY = player.body.position.y;
+        }
+        if (player.body.position.y < highestPlayerY + Sheight / 2) {
+          bg.setPosition(0, player.body.position.y * 0.5 - offset);
+          bg2.setPosition(0, player.body.position.y * 0.5 - offset2);
+          this.cameras.main.centerOnY(player.body.position.y);
+        }
+        if (
+          player.body.position.y > highestPlayerY + Sheight / 2 + 500 &&
+          dead != true
+        ) {
+          for (let i = 0; i < allPlatforms.length; i++) {
+            allPlatforms[i].destroy();
+          }
+          gameOver();
+          player.disableBody();
+        }
+        //make platforms
+        if (player.body.position.y < lastPlatformY + Sheight + 200) {
+          while (player.body.position.y < lastPlatformY + Sheight + 200) {
+            generatePlatform(this);
+            this.cameras.main.y;
+            this.physics.add.collider(player, platforms);
+          }
+        }
+
+        this.physics.add.collider(player, platforms);
+
+        // console.log(paused);
+        //console.log(player.x);
+        //Player will not move in the x-axis unless a movement key is being pressed
+        //player.setVelocityX(0);
+
+        //Player has "drag" on the x-axis meaning they slide a bit after an input
+        player.setDragX(1000);
+
+        //Handle player movements
+        if (cursors.left.isDown || keys.A.isDown) {
+          if (player.body.velocity.x > -maxSpeed) {
+            player.setAccelerationX(-acceleration);
+            if (player.angle >= -90) {
+              player.angle -= 1;
+            }
+          } else {
+            player.setVelocityX(-maxSpeed);
+          }
+          player.play(player.animations["left"], true);
+        } else if (cursors.right.isDown || keys.D.isDown) {
+          player.setAccelerationX(acceleration);
+          if (player.body.velocity.x > maxSpeed) {
+            player.body.velocity.x = maxSpeed;
+          }
+          if (player.angle <= 90) {
+            player.angle++;
+          }
+          player.play(player.animations["right"], true);
+        } else {
+          if (player.angle < 0) {
+            player.angle += 4;
+          }
+          if (player.angle > 0) {
+            player.angle -= 4;
+          }
+          player.setAccelerationX(0);
+          player.play(player.animations["idle"], true);
+        }
+        if (player.x < 0) {
+          player.setPosition(Swidth, player.y);
+        }
+        if (player.x > Swidth) {
+          player.setPosition(0, player.y);
+        }
+        //let bounds = player.getBounds();
+        //graphics.clear();
+        //graphics.lineStyle(1, 0xff0000);
+        //graphics.strokeRectShape(bounds);
+        if (player.body.touching.down) {
+          jump();
+        }
+      }
+      function pause() {
+        paused = paused + 1;
+        if (paused == 1) {
+          player.disableBody();
+        }
+        if (paused == 2) {
+          paused = 0;
+          player.enableBody();
+        }
+
+        //let pauseX = player.x;
+        //let pauseY = player.y;
+        //player.setAccelerationX(0);
+        //player.setPosition(pauseX,pauseY);
+        //player.setVelocityY(0);
+        //console.log(pauseX)
+      }
+      function jump(event) {
+        if (player.body.touching.down) {
+          jumpsound.play();
+          player.setVelocityY(-1150);
+        }
+      }
+
+      class Player extends Phaser.Physics.Arcade.Sprite {
+        animations;
+        constructor(scene, x, y, spritesheet, animations) {
+          super(scene, x, y, spritesheet);
+          this.animations = animations;
+          scene.add.existing(this);
+          scene.physics.add.existing(this);
+          this.setScale(2);
+          this.setCollideWorldBounds(false);
+          this.setGravityY(1000);
+        }
+      }
+    </script>
+  </body>
+</html>
