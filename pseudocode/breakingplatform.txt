@@ -1,0 +1,4 @@
+create array w/ imgs
+push imgs after break to top 
+same logic as normal
+play anim from phaser w 7 images and index into json
