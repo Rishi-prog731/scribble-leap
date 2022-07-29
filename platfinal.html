@@ -38,6 +38,7 @@
       var platforms;
       var map;
       var player;
+      var platformArray = [];
 
       //Keyboard controls
       var cursors;
@@ -155,14 +156,17 @@
       }
       
       function generatePlatform(scene) {
+
         platforms = scene.physics.add.staticGroup();
         lastPlatformY -= 100;
         let platform = platforms.create(Math.random()*1000, lastPlatformY, "platform");
+        platformArray.push(platform);
+        console.log(platformArray.length);
         platform.setScale(.3, .3). refreshBody();
-        if (player.body.position.y-platform.body.position.y > Sheight/2){
-          console.log("player Y ")
-          platform.disableBody();
-        }
+        //if (player.body.position.y-platform.body.position.y > Sheight/2){
+        //  console.log("player Y ")
+        //  platform.disableBody();
+       // }
         platform.body.checkCollision.down = false;
         platform.body.checkCollision.right = false;
         platform.body.checkCollision.left = false;
@@ -176,6 +180,10 @@
         }*/
         if (player.body.position.y < lastPlatformY + Swidth + 200) {
           while (player.body.position.y < lastPlatformY + Swidth + 200) {
+            if (platformArray.length >= 21){
+              platformArray[0].destroy();
+              platformArray.shift();
+            }
             generatePlatform(this);
             this.physics.add.collider(player, platforms);
           }
@@ -190,7 +198,7 @@
 
         //Player has "drag" on the x-axis meaning they slide a bit after an input
         player.setDragX(1000);
-
+        
         //Handle player movements
         if (cursors.left.isDown || keys.A.isDown) {
           if (player.body.velocity.x > -maxSpeed) {
