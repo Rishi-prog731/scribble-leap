@@ -8,7 +8,7 @@ information to effectively respond to your bug report or contribution.
 
 
 ## Security issue notifications
-If you discover a potential security issue in this project we ask that you notify AWS/Amazon Security via our [Glitch](https://glitch.com/edit/#!/scribbleleap). Please do **not** create a public GitHub issue.
+If you discover a potential security issue in this project we ask that you notify us via our [Glitch](https://glitch.com/edit/#!/scribbleleap). Please do **not** create a public GitHub issue.
 
 
 ## Reporting Bugs/Feature Requests
